@@ -2,8 +2,8 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using COMP442_Assignment3.Lexical;
-using COMP442_Assignment3.Syntactic;
+using COMP442_Assignment4.Lexical;
+using COMP442_Assignment4.Syntactic;
 using System.Linq;
 
 namespace Assignment2_UnitTests

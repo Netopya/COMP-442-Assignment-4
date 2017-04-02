@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using COMP442_Assignment3.Lexical;
+using COMP442_Assignment4.Lexical;
 
 namespace Assignment2_UnitTests
 {

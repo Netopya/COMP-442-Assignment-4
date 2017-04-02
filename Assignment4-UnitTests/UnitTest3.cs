@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using COMP442_Assignment3.Lexical;
-using COMP442_Assignment3.Syntactic;
+using COMP442_Assignment4.Lexical;
+using COMP442_Assignment4.Syntactic;
 using System.Linq;
-using COMP442_Assignment3.SymbolTables;
+using COMP442_Assignment4.SymbolTables;
 
 namespace Assignment3_UnitTests
 {
