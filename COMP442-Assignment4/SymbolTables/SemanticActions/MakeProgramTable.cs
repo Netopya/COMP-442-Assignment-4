@@ -1,15 +1,15 @@
-﻿using COMP442_Assignment3.SymbolTables.SemanticActions;
+﻿using COMP442_Assignment4.SymbolTables.SemanticActions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using COMP442_Assignment3.SymbolTables;
-using COMP442_Assignment3.SymbolTables.SemanticRecords;
-using COMP442_Assignment3.Tokens;
-using COMP442_Assignment3.Lexical;
+using COMP442_Assignment4.SymbolTables;
+using COMP442_Assignment4.SymbolTables.SemanticRecords;
+using COMP442_Assignment4.Tokens;
+using COMP442_Assignment4.Lexical;
 
-namespace COMP442_Assignment3.SymbolTables.SemanticActions
+namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
     // Create the entry for the main program function
     public class MakeProgramTable : SemanticAction

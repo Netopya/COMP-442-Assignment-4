@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.Lexical
+namespace COMP442_Assignment4.Lexical
 {
     /*
         Allows a character to be matches to one from a

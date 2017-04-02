@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.SymbolTables.SemanticActions
+namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
     /*
         An entry in a symbol table that could be either

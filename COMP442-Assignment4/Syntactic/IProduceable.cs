@@ -1,11 +1,11 @@
-﻿using COMP442_Assignment3.Tokens;
+﻿using COMP442_Assignment4.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.Syntactic
+namespace COMP442_Assignment4.Syntactic
 {
     /*
         A symbol in the grammar used by the syntactic anaylzer

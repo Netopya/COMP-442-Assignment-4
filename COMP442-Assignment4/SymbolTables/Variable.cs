@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.SymbolTables
+namespace COMP442_Assignment4.SymbolTables
 {
     // A class to hold the structure of a variable (name, type, and array size description)
     public class Variable

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using COMP442_Assignment3.Tokens;
+using COMP442_Assignment4.Tokens;
 
-namespace COMP442_Assignment3.Lexical
+namespace COMP442_Assignment4.Lexical
 {
     /*
         A generic token class to hold a

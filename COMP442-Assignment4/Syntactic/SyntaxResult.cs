@@ -1,11 +1,11 @@
-﻿using COMP442_Assignment3.SymbolTables;
+﻿using COMP442_Assignment4.SymbolTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.Syntactic
+namespace COMP442_Assignment4.Syntactic
 {
     /*
         Class to store the results of a syntactic analysis

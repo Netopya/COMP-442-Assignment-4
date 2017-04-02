@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.Lexical
+namespace COMP442_Assignment4.Lexical
 {
     /*
         A generic character matcher that only recognizes

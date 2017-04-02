@@ -1,11 +1,11 @@
-﻿using COMP442_Assignment3.Tokens;
+﻿using COMP442_Assignment4.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.Lexical
+namespace COMP442_Assignment4.Lexical
 {
     /*
         A single node in the DFA that is a final state

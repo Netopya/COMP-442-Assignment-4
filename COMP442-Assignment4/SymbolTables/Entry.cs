@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.SymbolTables
+namespace COMP442_Assignment4.SymbolTables
 {
     // The different kinds of symbol table entries
     public enum EntryKinds

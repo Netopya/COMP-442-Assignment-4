@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace COMP442_Assignment3
+namespace COMP442_Assignment4
 {
     static class Program
     {

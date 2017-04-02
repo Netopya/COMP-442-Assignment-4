@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment3.SymbolTables.SemanticRecords
+namespace COMP442_Assignment4.SymbolTables.SemanticRecords
 {
     public enum RecordTypes
     {
