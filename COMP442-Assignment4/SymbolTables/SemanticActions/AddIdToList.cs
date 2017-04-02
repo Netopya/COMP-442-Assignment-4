@@ -19,9 +19,9 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             string idName = lastToken.getSemanticName();
 
             // Check parent scopes to ensure that the id has not already been declared
-            foreach (SymbolTable table in symbolTable)
+            if(symbolTable.Any())
             {
-                foreach(Entry entry in table.GetEntries())
+                foreach (Entry entry in symbolTable.Peek().GetEntries())
                 {
                     if (entry.getName() == idName)
                     {
@@ -29,10 +29,9 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                         break;
                     }
                 }
-
-                if (errors.Any())
-                    break;
             }
+            
+                
 
             // Ensure that we don't already have the id on the semantic stack
             // waiting to be consumed
