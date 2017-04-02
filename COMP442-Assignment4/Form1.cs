@@ -1,5 +1,5 @@
-﻿using COMP442_Assignment3.Lexical;
-using COMP442_Assignment3.Syntactic;
+﻿using COMP442_Assignment4.Lexical;
+using COMP442_Assignment4.Syntactic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace COMP442_Assignment3
+namespace COMP442_Assignment4
 {
     /*
         The main form for assignment 2. Handles all input and output.

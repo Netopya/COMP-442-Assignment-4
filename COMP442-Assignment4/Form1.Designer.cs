@@ -1,4 +1,4 @@
-﻿namespace COMP442_Assignment3
+﻿namespace COMP442_Assignment4
 {
     partial class Form1
     {
