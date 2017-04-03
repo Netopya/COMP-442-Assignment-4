@@ -14,7 +14,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     // Create the entry for the main program function
     public class MakeProgramTable : SemanticAction
     {
-        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
         {
             SymbolTable currentTable = symbolTable.Peek();
 

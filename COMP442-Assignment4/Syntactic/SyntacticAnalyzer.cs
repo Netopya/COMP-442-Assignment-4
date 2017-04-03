@@ -280,7 +280,9 @@ namespace COMP442_Assignment4.Syntactic
             
             symbolTableStack.Push(global);
 
-            List<string> moonCode = new List<string> { "entry" };
+            LinkedList<string> moonCode = new LinkedList<string>();
+            moonCode.AddFirst("entry");
+
 
             // The table driven algorithm as seen in class slides
             while(parseStack.Peek() != TokenList.EndOfProgram)
@@ -337,7 +339,7 @@ namespace COMP442_Assignment4.Syntactic
                 results.Derivation.Add(new List<IProduceable>(parseStack));
             }
 
-            moonCode.Add("hlt");
+            moonCode.AddLast("hlt");
             results.MoonCode = moonCode;
 
             return results;

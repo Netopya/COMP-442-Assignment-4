@@ -16,7 +16,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
         public static ClassEntry intClass = new ClassEntry("int");
         public static ClassEntry floatClass = new ClassEntry("float");
 
-        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
         {
             ClassEntry typeClass = null;
             List<string> errors = new List<string>();

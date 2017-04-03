@@ -11,7 +11,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     // Add an array size definition to the stack
     class AddSizeToList : SemanticAction
     {
-        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
         {
             semanticRecordTable.Push(new SemanticRecord(RecordTypes.Size, lastToken.getSemanticName()));
 

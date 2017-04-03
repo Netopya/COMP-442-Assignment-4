@@ -11,7 +11,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     // Make an entry (and associated symbol table) for an encountered class
     class MakeClassTable : SemanticAction
     {
-        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
         {
             SymbolTable currentTable = symbolTable.Peek();
             List<string> errors = new List<string>();

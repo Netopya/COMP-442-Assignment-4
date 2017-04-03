@@ -19,7 +19,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             { TokenList.Slash, "div"}
         };
 
-        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
         {
             string valA = string.Empty, valB = string.Empty;
             Token op = null;
@@ -48,7 +48,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             List<string> code = new List<string> { string.Format("addi r3, r0, {0}", valA), string.Format("addi r4, r0, {0}", valB), string.Format("{0} r2, r3, r4", opLists[op]) };
 
-            moonCode.AddRange(code);
+            code.ForEach(x => moonCode.AddLast(x));
 
             return new List<string>();
         }
