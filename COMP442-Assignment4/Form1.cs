@@ -86,6 +86,8 @@ namespace COMP442_Assignment4
 
             // Update the status label
             label1.Text = result.Errors.Any() ? "Status: Error in Syntax" : "Status: Valid Syntax";
+
+            txtMoonCode.Text = string.Join(Environment.NewLine, result.MoonCode);
         }
 
         // Outputs a string to a file

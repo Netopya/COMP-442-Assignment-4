@@ -102,6 +102,8 @@ namespace COMP442_Assignment4.Syntactic
             SemanticAction migrateVariableToList = new MigrateVariableToList();
             SemanticAction makeVariable = new MakeVariableTable();
             SemanticAction addSizeToList = new AddSizeToList();
+            SemanticAction basicAddTokenToList = new AddTokenToList();
+            
 
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
@@ -155,15 +157,15 @@ namespace COMP442_Assignment4.Syntactic
             Rule r39 = new Rule(relOption); // relOption -> EPSILON
             Rule r40 = new Rule(relExpr, new List<IProduceable> { relOp, arithExpr }); //relExpr -> relOp arithExpr
             Rule r41 = new Rule(arithExpr, new List<IProduceable> { term, arithExprPrime }); // arithExpr -> term arithExprPrime
-            Rule r42 = new Rule(arithExprPrime, new List<IProduceable> { addOp, term, arithExprPrime }); //arithExprPrime -> addOp term arithExprPrime
+            Rule r42 = new Rule(arithExprPrime, new List<IProduceable> { addOp, basicAddTokenToList, term, new MakeArithmExpression(), arithExprPrime }); //arithExprPrime -> addOp term arithExprPrime
             Rule r43 = new Rule(arithExprPrime); // arithExprPrime -> EPSILON
             Rule r44 = new Rule(sign, new List<IProduceable> { TokenList.Plus }); // sign -> +
             Rule r45 = new Rule(sign, new List<IProduceable> { TokenList.Minus }); // sign -> -
             Rule r46 = new Rule(term, new List<IProduceable> { factor, termPrime}); //term -> factor termPrime
-            Rule r47 = new Rule(termPrime, new List<IProduceable> { multOp, factor, termPrime }); // termPrime -> multOp factor termPrime
+            Rule r47 = new Rule(termPrime, new List<IProduceable> { multOp, basicAddTokenToList, factor, termPrime }); // termPrime -> multOp factor termPrime
             Rule r48 = new Rule(termPrime); // termPrime -> EPSILON
             Rule r49 = new Rule(factor, new List<IProduceable> { factorVarOrFunc }); // factor -> factorVarOrFunc
-            Rule r50 = new Rule(factor, new List<IProduceable> { num }); // factor -> num 
+            Rule r50 = new Rule(factor, new List<IProduceable> { num, new AddConstNum() }); // factor -> num 
             Rule r51 = new Rule(factor, new List<IProduceable> { TokenList.OpenParanthesis, arithExpr, TokenList.CloseParanthesis }); // factor -> ( arithExpr )
             Rule r52 = new Rule(factor, new List<IProduceable> { TokenList.Not, factor }); // factor -> not factor
             Rule r53 = new Rule(factor, new List<IProduceable> { sign, factor }); // factor -> sign factor
@@ -278,6 +280,8 @@ namespace COMP442_Assignment4.Syntactic
             
             symbolTableStack.Push(global);
 
+            List<string> moonCode = new List<string> { "entry" };
+
             // The table driven algorithm as seen in class slides
             while(parseStack.Peek() != TokenList.EndOfProgram)
             {
@@ -303,7 +307,7 @@ namespace COMP442_Assignment4.Syntactic
                     // Pop then execute the semantic action
                     parseStack.Pop();
                     SemanticAction action = (SemanticAction)top;
-                    results.SemanticErrors.AddRange(action.ExecuteSemanticAction(semanticStack, symbolTableStack, lastTerminal));
+                    results.SemanticErrors.AddRange(action.ExecuteSemanticAction(semanticStack, symbolTableStack, lastTerminal, moonCode));
                 }
                 else
                 {
@@ -332,6 +336,9 @@ namespace COMP442_Assignment4.Syntactic
                 // Add the current state of the stack to the derivation list
                 results.Derivation.Add(new List<IProduceable>(parseStack));
             }
+
+            moonCode.Add("hlt");
+            results.MoonCode = moonCode;
 
             return results;
         }

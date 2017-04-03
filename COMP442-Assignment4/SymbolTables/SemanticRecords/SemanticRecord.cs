@@ -11,7 +11,9 @@ namespace COMP442_Assignment4.SymbolTables.SemanticRecords
         TypeName,
         IdName,
         Size,
-        Variable
+        Variable,
+        ConstNum,
+        BasicToken
     }
 
     // A semantic record stores information on a semantic stack

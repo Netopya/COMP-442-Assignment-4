@@ -60,6 +60,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.txtMoonCode = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,6 +74,7 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCodeInput
@@ -121,6 +124,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
@@ -443,6 +447,27 @@
             this.linkLabel1.Text = "Open output directory";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.txtMoonCode);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(862, 325);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Moon Code";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // txtMoonCode
+            // 
+            this.txtMoonCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtMoonCode.Location = new System.Drawing.Point(3, 3);
+            this.txtMoonCode.Multiline = true;
+            this.txtMoonCode.Name = "txtMoonCode";
+            this.txtMoonCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtMoonCode.Size = new System.Drawing.Size(856, 319);
+            this.txtMoonCode.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,6 +495,8 @@
             this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -508,6 +535,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtSymbolTable;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TextBox txtMoonCode;
     }
 }
 

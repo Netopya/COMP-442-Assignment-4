@@ -8,26 +8,18 @@ using COMP442_Assignment4.SymbolTables.SemanticRecords;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
-    // Create an entry for a variable declaration
-    class MakeVariableTable : SemanticAction
+    class AddTokenToList : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode)
         {
-            SymbolTable currentTable = symbolTable.Peek();
-
-            // Get the last created variable
-            SemanticRecord variableRecord = semanticRecordTable.Pop();
-
-            Entry variableEntry = new VarParamEntry(currentTable, variableRecord.getVariable(), EntryKinds.variable);
-
-            moonCode.Add(string.Format("{0} dw 0", variableEntry.getAddress()));
+            semanticRecordTable.Push(new BasicTokenRecord(lastToken.getToken()));
 
             return new List<string>();
         }
 
         public override string getProductName()
         {
-            return "Add a variable to the symbolic table";
+            return "Add a basic token to the semantic stack";
         }
     }
 }

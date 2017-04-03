@@ -11,7 +11,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     // Make a function entry in a symbol table
     public class MakeFunctionTable : SemanticAction
     {
-        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode)
         {
             SymbolTable currentTable = symbolTable.Peek();
 

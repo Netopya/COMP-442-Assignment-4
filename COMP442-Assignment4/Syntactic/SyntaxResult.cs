@@ -18,6 +18,7 @@ namespace COMP442_Assignment4.Syntactic
         public List<string> Errors;
         public SymbolTable SymbolTable;
         public List<string> SemanticErrors;
+        public List<string> MoonCode;
 
         public SyntaxResult(SymbolTable symbolTable)
         {

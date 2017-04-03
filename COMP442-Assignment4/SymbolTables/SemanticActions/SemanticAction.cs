@@ -17,7 +17,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     public abstract class SemanticAction : IProduceable
     {
         // This funcion is executed when the symbol is consumed
-        public abstract List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken);
+        public abstract List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode);
 
         public List<Token> getFirstSet()
         {

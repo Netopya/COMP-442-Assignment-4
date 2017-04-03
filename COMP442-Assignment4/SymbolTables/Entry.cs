@@ -25,6 +25,7 @@ namespace COMP442_Assignment4.SymbolTables
 
         EntryKinds kind;
         string name;
+        string address;
 
         public Entry(SymbolTable parent, EntryKinds kind, string name)
         {
@@ -36,6 +37,21 @@ namespace COMP442_Assignment4.SymbolTables
 
             this.kind = kind;
             this.name = name;
+
+            LinkedList<string> names = new LinkedList<string>();
+            Entry current = this;
+
+            while(current != null)
+            {
+                names.AddLast(current.getName());
+
+                if (current.getParent() == null)
+                    break;
+
+                current = current.getParent().getParent();
+            }
+
+            address = string.Join("_", names.Reverse());
         }
 
         // Get a symbol table for the inner scope of this entry
@@ -76,6 +92,11 @@ namespace COMP442_Assignment4.SymbolTables
         protected SymbolTable getParent()
         {
             return parent;
+        }
+
+        public string getAddress()
+        {
+            return address;
         }
     }
 }

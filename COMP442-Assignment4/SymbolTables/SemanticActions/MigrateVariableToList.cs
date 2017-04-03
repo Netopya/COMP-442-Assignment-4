@@ -10,7 +10,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
     class MigrateVariableToList : SemanticAction
     {
-        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, List<string> moonCode)
         {
             Variable variable = new Variable();
             List<string> errors = new List<string>();
