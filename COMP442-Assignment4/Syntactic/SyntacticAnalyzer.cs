@@ -110,6 +110,9 @@ namespace COMP442_Assignment4.Syntactic
             SemanticAction migrateVariableReference = new MigrateVariableReference();
             SemanticAction addIndiceCountToList = new AddSimpleRecordToList(string.Empty, RecordTypes.IndiceCount);
 
+            SemanticAction migrateFunctionCall = new MigrateFunctionCall();
+            SemanticAction addParamsCountToList = new AddSimpleRecordToList(string.Empty, RecordTypes.FunctionParamCount);
+
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
             Rule r2 = new Rule(classDecl, new List<IProduceable> {
@@ -179,7 +182,7 @@ namespace COMP442_Assignment4.Syntactic
             Rule r56 = new Rule(furtherIdNest); // furtherIdNest  -> EPSILON
             Rule r57 = new Rule(factorVarOrFunc, new List<IProduceable> { TokenList.Identifier, addIdNameTolist, furtherFactor}); // factorVarOrFunc -> id furtherFactor
             Rule r58 = new Rule(furtherFactor, new List<IProduceable> { indiceList, migrateVariableReference, furtherIndice }); //furtherFactor -> indiceList furtherIndice
-            Rule r59 = new Rule(furtherFactor, new List<IProduceable> { TokenList.OpenParanthesis, aParams, TokenList.CloseParanthesis }); //furtherFactor -> ( aParams )
+            Rule r59 = new Rule(furtherFactor, new List<IProduceable> { TokenList.OpenParanthesis, aParams, TokenList.CloseParanthesis, migrateFunctionCall }); //furtherFactor -> ( aParams )
             Rule r60 = new Rule(furtherIndice, new List<IProduceable> { TokenList.Period, factorVarOrFunc}); //furtherIndice -> . factorVarOrFunc 
             Rule r61 = new Rule(furtherIndice); // furtherIndice  -> EPSILON
             Rule r62 = new Rule(indiceList, new List<IProduceable> { indice, indiceList}); // indiceList -> indice indiceList
@@ -191,7 +194,7 @@ namespace COMP442_Assignment4.Syntactic
             Rule r68 = new Rule(type, new List<IProduceable> { TokenList.Identifier }); // type -> id
             Rule r69 = new Rule(fParams, new List<IProduceable> { type, addTypeToList, TokenList.Identifier, addIdToList, arraySizeList, migrateVariableToList, fParamsTail}); // fParams -> type id arraySizeList fParamsTail
             Rule r70 = new Rule(fParams); // fParams -> EPSILON
-            Rule r71 = new Rule(aParams, new List<IProduceable> { expr, aParamsTail}); // aParams -> expr aParamsTail
+            Rule r71 = new Rule(aParams, new List<IProduceable> { expr, addParamsCountToList, aParamsTail}); // aParams -> expr aParamsTail
             Rule r72 = new Rule(aParams); // aParams -> EPSILON
             Rule r73 = new Rule(fParamsTail, new List<IProduceable> { TokenList.Comma, type, addTypeToList, TokenList.Identifier, addIdToList, arraySizeList, migrateVariableToList, fParamsTail}); // fParamsTail -> , type id arraySizeList fParamsTail
             Rule r74 = new Rule(fParamsTail); // fParamsTail  -> EPSILON

@@ -81,11 +81,13 @@
     <Compile Include="SymbolTables\SemanticActions\MakeFunctionTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeProgramTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeVariableTable.cs" />
+    <Compile Include="SymbolTables\SemanticActions\MigrateFunctionCall.cs" />
     <Compile Include="SymbolTables\SemanticActions\MigrateVariableReference.cs" />
     <Compile Include="SymbolTables\SemanticActions\MigrateVariableToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\SemanticAction.cs" />
     <Compile Include="SymbolTables\SemanticActions\VerifyFactorReference.cs" />
     <Compile Include="SymbolTables\SemanticRecords\BasicTokenRecord.cs" />
+    <Compile Include="SymbolTables\SemanticRecords\FunctionCallRecord.cs" />
     <Compile Include="SymbolTables\SemanticRecords\SemanticRecord.cs" />
     <Compile Include="SymbolTables\SemanticRecords\VariableReferenceRecord.cs" />
     <Compile Include="SymbolTables\SymbolTable.cs" />
