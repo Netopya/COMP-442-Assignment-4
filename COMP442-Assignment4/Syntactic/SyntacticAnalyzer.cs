@@ -177,8 +177,8 @@ namespace COMP442_Assignment4.Syntactic
             Rule r51 = new Rule(factor, new List<IProduceable> { TokenList.OpenParanthesis, arithExpr, TokenList.CloseParanthesis }); // factor -> ( arithExpr )
             Rule r52 = new Rule(factor, new List<IProduceable> { TokenList.Not, factor }); // factor -> not factor
             Rule r53 = new Rule(factor, new List<IProduceable> { sign, factor }); // factor -> sign factor
-            Rule r54 = new Rule(variable, new List<IProduceable> { indiceList, furtherIdNest }); // variable -> indiceList furtherIdNest
-            Rule r55 = new Rule(furtherIdNest, new List<IProduceable> { TokenList.Period, TokenList.Identifier, indiceList, furtherIdNest}); // furtherIdNest -> . id indiceList furtherIdNest
+            Rule r54 = new Rule(variable, new List<IProduceable> { addStartFactor, addIdNameTolist, indiceList, migrateVariableReference, furtherIdNest, verifyFactorReference }); // variable -> indiceList furtherIdNest
+            Rule r55 = new Rule(furtherIdNest, new List<IProduceable> { TokenList.Period, TokenList.Identifier, addIdNameTolist, indiceList, migrateVariableReference, furtherIdNest}); // furtherIdNest -> . id indiceList furtherIdNest
             Rule r56 = new Rule(furtherIdNest); // furtherIdNest  -> EPSILON
             Rule r57 = new Rule(factorVarOrFunc, new List<IProduceable> { TokenList.Identifier, addIdNameTolist, furtherFactor}); // factorVarOrFunc -> id furtherFactor
             Rule r58 = new Rule(furtherFactor, new List<IProduceable> { indiceList, migrateVariableReference, furtherIndice }); //furtherFactor -> indiceList furtherIndice

@@ -46,6 +46,12 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
                 ClassEntry referredClass = ((VarParamEntry)linkedVariable).getVariable().getClass();
 
+                if (referredClass.getChild() == null)
+                {
+                    errors.Add(string.Format("Identifier {0} cannot be reached at line {1}", currentLink.getValue(), lastToken.getLine()));
+                    return errors;
+                }
+
                 linkedVariable = referredClass.getChild().GetEntries().FirstOrDefault(x => (x is VarParamEntry || x is FunctionEntry) && x.getName() == currentLink.getValue());
 
                 success = VerifyLink(currentLink, linkedVariable, lastToken, errors);
