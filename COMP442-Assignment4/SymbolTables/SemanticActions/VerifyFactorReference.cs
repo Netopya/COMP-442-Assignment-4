@@ -34,31 +34,11 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                     break;
             }
 
-            if (linkedVariable == null)
-            {
-                errors.Add(string.Format("Undefined identifier {0} at line {1}", currentLink.getValue(), lastToken.getLine()));
-                return errors;
-            }
+            bool success = VerifyLink(currentLink, linkedVariable, lastToken, errors);
 
-            if(currentLink is VariableReferenceRecord)
-            {
-                if (((VarParamEntry)linkedVariable).getVariable().GetDimensions().Count != ((VariableReferenceRecord)currentLink).getDimensions())
-                {
-                    errors.Add(string.Format("Identifier {0} at line {1} does not have the correct number of indices. Counted {2} expected {3}"
-                        , currentLink.getValue(), lastToken.getLine(), ((VariableReferenceRecord)currentLink).getDimensions(), ((VarParamEntry)linkedVariable).getVariable().GetDimensions().Count));
-                    return errors;
-                }
-            }
-            else if(currentLink is FunctionCallRecord)
-            {
-                if (((FunctionEntry)linkedVariable).getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter).Count() != ((FunctionCallRecord)currentLink).GetParameterCount())
-                {
-                    errors.Add(string.Format("Identifier {0} at line {1} does not have the correct number of parameters. Counted {2} expected {3}"
-                        , currentLink.getValue(), lastToken.getLine(), ((FunctionCallRecord)currentLink).GetParameterCount(), ((FunctionEntry)linkedVariable).getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter).Count()));
-                    return errors;
-                }
-            }
-            
+            if (!success)
+                return errors;
+
 
             while (callChain.Any())
             {
@@ -68,30 +48,10 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
                 linkedVariable = referredClass.getChild().GetEntries().FirstOrDefault(x => (x is VarParamEntry || x is FunctionEntry) && x.getName() == currentLink.getValue());
 
-                if (linkedVariable == null)
-                {
-                    errors.Add(string.Format("Undefined identifier {0} at line {1}", currentLink.getValue(), lastToken.getLine()));
-                    return errors;
-                }
+                success = VerifyLink(currentLink, linkedVariable, lastToken, errors);
 
-                if (currentLink is VariableReferenceRecord)
-                {
-                    if (((VarParamEntry)linkedVariable).getVariable().GetDimensions().Count != ((VariableReferenceRecord)currentLink).getDimensions())
-                    {
-                        errors.Add(string.Format("Identifier {0} at line {1} does not have the correct number of indices. Counted {2} expected {3}"
-                            , currentLink.getValue(), lastToken.getLine(), ((VariableReferenceRecord)currentLink).getDimensions(), ((VarParamEntry)linkedVariable).getVariable().GetDimensions().Count));
-                        return errors;
-                    }
-                }
-                else if (currentLink is FunctionCallRecord)
-                {
-                    if (((FunctionEntry)linkedVariable).getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter).Count() != ((FunctionCallRecord)currentLink).GetParameterCount())
-                    {
-                        errors.Add(string.Format("Identifier {0} at line {1} does not have the correct number of parameters. Counted {2} expected {3}"
-                            , currentLink.getValue(), lastToken.getLine(), ((FunctionCallRecord)currentLink).GetParameterCount(), ((FunctionEntry)linkedVariable).getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter).Count()));
-                        return errors;
-                    }
-                }
+                if (!success)
+                    return errors;
             }
 
 
@@ -102,6 +62,57 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
         public override string getProductName()
         {
             return "Verify data members";
+        }
+        
+        private bool VerifyLink(SemanticRecord currentLink, Entry linkedVariable, IToken lastToken, List<string> errors)
+        {
+            if (linkedVariable == null)
+            {
+                errors.Add(string.Format("Undefined identifier {0} at line {1}", currentLink.getValue(), lastToken.getLine()));
+                return false;
+            }
+
+            if(linkedVariable is VarParamEntry && currentLink is FunctionCallRecord)
+            {
+                errors.Add(string.Format("Identifier {0} at line {1} is referring to a variable like a function", currentLink.getValue(), lastToken.getLine()));
+                return false;
+            }
+            else if(linkedVariable is FunctionEntry && currentLink is VariableReferenceRecord)
+            {
+                errors.Add(string.Format("Identifier {0} at line {1} is referring to a function like a variable", currentLink.getValue(), lastToken.getLine()));
+                return false;
+            }
+
+            if (currentLink is VariableReferenceRecord)
+            {
+                if (((VarParamEntry)linkedVariable).getVariable().GetDimensions().Count != ((VariableReferenceRecord)currentLink).getDimensions())
+                {
+                    errors.Add(string.Format("Identifier {0} at line {1} does not have the correct number of indices. Counted {2} expected {3}"
+                        , currentLink.getValue(), lastToken.getLine(), ((VariableReferenceRecord)currentLink).getDimensions(), ((VarParamEntry)linkedVariable).getVariable().GetDimensions().Count));
+                    return false;
+                }
+                return true;
+            }
+            else if (currentLink is FunctionCallRecord)
+            {
+                if (CountNumParams(linkedVariable as FunctionEntry) != ((FunctionCallRecord)currentLink).GetParameterCount())
+                {
+                    errors.Add(string.Format("Identifier {0} at line {1} does not have the correct number of parameters. Counted {2} expected {3}"
+                        , currentLink.getValue(), lastToken.getLine(), ((FunctionCallRecord)currentLink).GetParameterCount(), CountNumParams(linkedVariable as FunctionEntry)));
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                errors.Add("Grammar error: Illegal record on semantic stack");
+                return false;
+            }
+        }
+
+        private int CountNumParams(FunctionEntry entry)
+        {
+            return entry.getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter).Count();
         }
     }
 }
