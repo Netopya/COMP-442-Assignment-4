@@ -8,18 +8,19 @@ using COMP442_Assignment4.SymbolTables.SemanticRecords;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
-    class AddIndiceCountToList : SemanticAction
+    class AddIdNameToList : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
         {
-            semanticRecordTable.Push(new SemanticRecord(RecordTypes.IndiceCount, string.Empty));
+            string idName = lastToken.getSemanticName();
+            semanticRecordTable.Push(new SemanticRecord(RecordTypes.IdNameReference, idName));
 
             return new List<string>();
         }
 
         public override string getProductName()
         {
-            return "Counts an indice";
+            return "Add an id name to the semantic stack";
         }
     }
 }

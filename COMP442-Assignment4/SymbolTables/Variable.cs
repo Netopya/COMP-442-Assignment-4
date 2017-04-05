@@ -32,10 +32,20 @@ namespace COMP442_Assignment4.SymbolTables
             this.type = type;
         }
 
+        public ClassEntry getClass()
+        {
+            return type;
+        }
+
         // Add a dimension to the front
         public void AddDimension(int dimension)
         {
             dimensions.AddFirst(dimension);
+        }
+
+        public LinkedList<int> GetDimensions()
+        {
+            return dimensions;
         }
 
         // Create a reable string

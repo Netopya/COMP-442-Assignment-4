@@ -29,5 +29,10 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
         {
             return variable.formatString();
         }
+
+        public Variable getVariable()
+        {
+            return variable;
+        }
     }
 }
