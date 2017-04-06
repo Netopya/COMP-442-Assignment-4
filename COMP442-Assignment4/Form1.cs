@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,6 +26,11 @@ namespace COMP442_Assignment4
 
         string outputLocation = Application.StartupPath;
 
+        private const int EM_SETTABSTOPS = 0x00CB;
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr SendMessage(IntPtr h, int msg, int wParam, int[] lParam);
+
         public Form1()
         {
             lexAnalyzer = new LexicalAnalyzer();
@@ -35,6 +41,13 @@ namespace COMP442_Assignment4
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            int width = 2;
+
+            // Set tab spacing
+            // Stylize tabs as shown here: http://stackoverflow.com/questions/1298406/how-to-set-the-tab-width-in-a-windows-forms-textbox-control
+            SendMessage(txtCodeInput.Handle, EM_SETTABSTOPS, 1, new int[] { width * 4 });
+
+            txtCodeInput.Text = Properties.Settings.Default.lastCode;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -42,6 +55,9 @@ namespace COMP442_Assignment4
             label1.Text = "Status: analyzing...";
 
             var code = txtCodeInput.Text;
+
+            Properties.Settings.Default.lastCode = code;
+            Properties.Settings.Default.Save();
 
             var tokens = lexAnalyzer.Tokenize(code);
 
