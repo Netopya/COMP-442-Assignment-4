@@ -13,13 +13,20 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     */
     class AddIdToList : SemanticAction
     {
+        bool checkParent;
+
+        public AddIdToList(bool checkParent)
+        {
+            this.checkParent = checkParent;
+        }
+
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
         {
             List<string> errors = new List<string>();
             string idName = lastToken.getSemanticName();
 
             // Check parent scopes to ensure that the id has not already been declared
-            if(symbolTable.Any())
+            if(symbolTable.Any() && checkParent)
             {
                 foreach (Entry entry in symbolTable.Peek().GetEntries())
                 {

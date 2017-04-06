@@ -98,7 +98,8 @@ namespace COMP442_Assignment4.Syntactic
             SemanticAction addTypeToList = new AddTypeToList();
             SemanticAction makeFuncTable = new MakeFunctionTable();
             SemanticAction makeClassTable = new MakeClassTable();
-            SemanticAction addIdToList = new AddIdToList();
+            SemanticAction addIdToList = new AddIdToList(true);
+            SemanticAction addIdToListFunc = new AddIdToList(false);
             SemanticAction migrateVariableToList = new MigrateVariableToList();
             SemanticAction makeVariable = new MakeVariableTable();
             SemanticAction addSizeToList = new AddSizeToList();
@@ -192,11 +193,11 @@ namespace COMP442_Assignment4.Syntactic
             Rule r66 = new Rule(type, new List<IProduceable> { TokenList.IntRes}); // type -> intRes
             Rule r67 = new Rule(type, new List<IProduceable> { TokenList.FloatRes }); // type -> floatRes
             Rule r68 = new Rule(type, new List<IProduceable> { TokenList.Identifier }); // type -> id
-            Rule r69 = new Rule(fParams, new List<IProduceable> { type, addTypeToList, TokenList.Identifier, addIdToList, arraySizeList, migrateVariableToList, fParamsTail}); // fParams -> type id arraySizeList fParamsTail
+            Rule r69 = new Rule(fParams, new List<IProduceable> { type, addTypeToList, TokenList.Identifier, addIdToListFunc, arraySizeList, migrateVariableToList, fParamsTail}); // fParams -> type id arraySizeList fParamsTail
             Rule r70 = new Rule(fParams); // fParams -> EPSILON
             Rule r71 = new Rule(aParams, new List<IProduceable> { expr, addParamsCountToList, aParamsTail}); // aParams -> expr aParamsTail
             Rule r72 = new Rule(aParams); // aParams -> EPSILON
-            Rule r73 = new Rule(fParamsTail, new List<IProduceable> { TokenList.Comma, type, addTypeToList, TokenList.Identifier, addIdToList, arraySizeList, migrateVariableToList, fParamsTail}); // fParamsTail -> , type id arraySizeList fParamsTail
+            Rule r73 = new Rule(fParamsTail, new List<IProduceable> { TokenList.Comma, type, addTypeToList, TokenList.Identifier, addIdToListFunc, arraySizeList, migrateVariableToList, fParamsTail}); // fParamsTail -> , type id arraySizeList fParamsTail
             Rule r74 = new Rule(fParamsTail); // fParamsTail  -> EPSILON
             Rule r75 = new Rule(aParamsTail, new List<IProduceable> { TokenList.Comma, expr, aParamsTail}); // aParamsTail -> , expr aParamsTail
             Rule r76 = new Rule(aParamsTail); // aParamsTail  -> EPSILON
