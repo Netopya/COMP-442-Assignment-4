@@ -36,8 +36,8 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             bool success = VerifyLink(currentLink, linkedVariable, lastToken, errors);
 
-            if (!success)
-                return errors;
+            //if (!success)
+                //return errors;
 
 
             while (callChain.Any())
@@ -56,20 +56,20 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
                 success = VerifyLink(currentLink, linkedVariable, lastToken, errors);
 
-                if (!success)
-                    return errors;
+                //if (!success)
+                    //return errors;
             }
 
-            ClassEntry expressionType;
+            ClassEntry expressionType = new ClassEntry("undefined");
 
             if (linkedVariable is VarParamEntry)
                 expressionType = ((VarParamEntry)linkedVariable).getVariable().getClass();
-            else
+            else if(linkedVariable is FunctionEntry)
                 expressionType = ((FunctionEntry)linkedVariable).GetReturnType();
 
             semanticRecordTable.Push(new ExpressionRecord(expressionType));
 
-            return new List<string>();
+            return errors;
         }
 
         public override string getProductName()
@@ -109,12 +109,25 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             }
             else if (currentLink is FunctionCallRecord)
             {
-                if (CountNumParams(linkedVariable as FunctionEntry) != ((FunctionCallRecord)currentLink).GetParameterCount())
+                var parameters = GetParameters(linkedVariable as FunctionEntry);
+
+                if (parameters.Count() != ((FunctionCallRecord)currentLink).GetParameterCount())
                 {
                     errors.Add(string.Format("Identifier {0} at line {1} does not have the correct number of parameters. Counted {2} expected {3}"
-                        , currentLink.getValue(), lastToken.getLine(), ((FunctionCallRecord)currentLink).GetParameterCount(), CountNumParams(linkedVariable as FunctionEntry)));
+                        , currentLink.getValue(), lastToken.getLine(), ((FunctionCallRecord)currentLink).GetParameterCount(), parameters.Count()));
                     return false;
                 }
+                //else if(parameters.Zip(((FunctionCallRecord)currentLink).GetParameters(), (fparam, aparam) => ((VarParamEntry)fparam).getVariable().getClass() == aparam.getVariable().getClass()).Any(x => !x))
+                else
+                {
+                    var parameterComparers = parameters.Zip(((FunctionCallRecord)currentLink).GetParameters(), (f, a) => new { aparam = a, fparam = (VarParamEntry)f });
+
+                    foreach(var parameterCompare in parameterComparers)
+                    {
+
+                    }
+                }
+
                 return true;
             }
             else
@@ -124,9 +137,14 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             }
         }
 
-        private int CountNumParams(FunctionEntry entry)
+        /*private int CountNumParams(FunctionEntry entry)
         {
             return entry.getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter).Count();
+        }*/
+
+        private IEnumerable<Entry> GetParameters(FunctionEntry enty)
+        {
+            return enty.getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter);
         }
     }
 }

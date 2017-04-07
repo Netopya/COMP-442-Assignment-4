@@ -8,16 +8,21 @@ namespace COMP442_Assignment4.SymbolTables.SemanticRecords
 {
     class FunctionCallRecord : SemanticRecord
     {
-        int parameterCount;
+        LinkedList<ExpressionRecord> parameterExpressions;
 
-        public FunctionCallRecord(string name, int parameterCount):base(RecordTypes.FunctionCall, name)
+        public FunctionCallRecord(string name, LinkedList<ExpressionRecord> parameterExpressions):base(RecordTypes.FunctionCall, name)
         {
-            this.parameterCount = parameterCount;
+            this.parameterExpressions = parameterExpressions;
         }
 
         public int GetParameterCount()
         {
-            return parameterCount;
+            return parameterExpressions.Count;
+        }
+
+        public LinkedList<ExpressionRecord> GetParameters()
+        {
+            return parameterExpressions;
         }
     }
 }

@@ -12,25 +12,25 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
         {
-            int paramsCount = 0;
             SemanticRecord top = semanticRecordTable.Pop();
             List<string> errors = new List<string>();
+            LinkedList<ExpressionRecord> expressionParameters = new LinkedList<ExpressionRecord>();
 
             while (top.recordType != RecordTypes.IdNameReference)
             {
-                paramsCount++;
-
-                if (top.recordType != RecordTypes.FunctionParamCount)
+                if (top.recordType != RecordTypes.ExpressionType)
                 {
                     errors.Add(string.Format("Grammar error at {0}. Migrating a function call should only count parameters, found {1}", lastToken.getLine(), top.recordType.ToString()));
-                    paramsCount--;
                 }
-
+                else
+                {
+                    expressionParameters.AddFirst((ExpressionRecord)top);
+                }
 
                 top = semanticRecordTable.Pop();
             }
 
-            semanticRecordTable.Push(new FunctionCallRecord(top.getValue(), paramsCount));
+            semanticRecordTable.Push(new FunctionCallRecord(top.getValue(), expressionParameters));
 
             return errors;
         }
