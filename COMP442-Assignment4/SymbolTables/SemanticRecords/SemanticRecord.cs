@@ -19,7 +19,8 @@ namespace COMP442_Assignment4.SymbolTables.SemanticRecords
         FactorStart,
         IdNameReference,
         FunctionParamCount,
-        FunctionCall
+        FunctionCall,
+        ExpressionType
     }
 
     // A semantic record stores information on a semantic stack

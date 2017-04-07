@@ -114,6 +114,8 @@ namespace COMP442_Assignment4.Syntactic
             SemanticAction migrateFunctionCall = new MigrateFunctionCall();
             SemanticAction addParamsCountToList = new AddSimpleRecordToList(string.Empty, RecordTypes.FunctionParamCount);
 
+            SemanticAction checkAssignment = new CheckAssignment();
+
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
             Rule r2 = new Rule(classDecl, new List<IProduceable> {
@@ -153,7 +155,7 @@ namespace COMP442_Assignment4.Syntactic
             }); // statement -> get(id variable);
             Rule r27 = new Rule(statement, new List<IProduceable> { TokenList.Put, TokenList.OpenParanthesis, expr, TokenList.CloseParanthesis, TokenList.SemiColon }); // statement -> put ( expr ) ;
             Rule r28 = new Rule(statement, new List<IProduceable> { TokenList.Return, TokenList.OpenParanthesis, expr, TokenList.CloseParanthesis, TokenList.SemiColon }); // statement -> return ( expr ) ;
-            Rule r29 = new Rule(assignStat, new List<IProduceable> { variable, assignOp, expr }); //assignStat -> variable assignOp expr
+            Rule r29 = new Rule(assignStat, new List<IProduceable> { variable, assignOp, expr, checkAssignment }); //assignStat -> variable assignOp expr
             Rule r30 = new Rule(statBlock, new List<IProduceable> { TokenList.OpenCurlyBracket, statementList, TokenList.CloseCurlyBracket }); // statBlock -> { statementList }
             Rule r31 = new Rule(statBlock, new List<IProduceable> { statement });  // statBlock -> statement
             Rule r32 = new Rule(statBlock, new List<IProduceable> { TokenList.Identifier, assignStat, TokenList.SemiColon }); // statBlock -> id assignStat ;

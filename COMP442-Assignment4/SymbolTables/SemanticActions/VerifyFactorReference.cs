@@ -60,7 +60,14 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                     return errors;
             }
 
+            ClassEntry expressionType;
 
+            if (linkedVariable is VarParamEntry)
+                expressionType = ((VarParamEntry)linkedVariable).getVariable().getClass();
+            else
+                expressionType = ((FunctionEntry)linkedVariable).GetReturnType();
+
+            semanticRecordTable.Push(new ExpressionRecord(expressionType));
 
             return new List<string>();
         }
@@ -89,6 +96,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                 return false;
             }
 
+            // Verify that a variable is being accessed with the correct number of indices
             if (currentLink is VariableReferenceRecord)
             {
                 if (((VarParamEntry)linkedVariable).getVariable().GetDimensions().Count != ((VariableReferenceRecord)currentLink).getDimensions())

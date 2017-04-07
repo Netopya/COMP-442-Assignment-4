@@ -47,5 +47,10 @@ namespace COMP442_Assignment4.SymbolTables
                 new VarParamEntry(child, parameter, EntryKinds.parameter);
             }
         }
+
+        public ClassEntry GetReturnType()
+        {
+            return type;
+        }
     }
 }

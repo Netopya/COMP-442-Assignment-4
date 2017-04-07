@@ -75,6 +75,7 @@
     <Compile Include="SymbolTables\SemanticActions\AddSizeToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddTokenToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddTypeToList.cs" />
+    <Compile Include="SymbolTables\SemanticActions\CheckAssignment.cs" />
     <Compile Include="SymbolTables\SemanticActions\CloseTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeArithmExpression.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeClassTable.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="SymbolTables\SemanticActions\SemanticAction.cs" />
     <Compile Include="SymbolTables\SemanticActions\VerifyFactorReference.cs" />
     <Compile Include="SymbolTables\SemanticRecords\BasicTokenRecord.cs" />
+    <Compile Include="SymbolTables\SemanticRecords\ExpressionRecord.cs" />
     <Compile Include="SymbolTables\SemanticRecords\FunctionCallRecord.cs" />
     <Compile Include="SymbolTables\SemanticRecords\SemanticRecord.cs" />
     <Compile Include="SymbolTables\SemanticRecords\VariableReferenceRecord.cs" />
