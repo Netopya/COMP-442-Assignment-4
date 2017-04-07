@@ -140,7 +140,7 @@ namespace COMP442_Assignment4.Lexical
                 {asterisk, s42 }
             }, err);
 
-            s1.addTransition(new ListCharacterMatch(new List<char> { ' ', (char)10 , (char)13 }), s1);
+            s1.addTransition(new ListCharacterMatch(new List<char> { ' ', (char)10 , (char)13, (char)9 }), s1);
 
             root = s1;
         }

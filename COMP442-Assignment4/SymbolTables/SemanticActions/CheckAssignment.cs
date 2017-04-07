@@ -28,7 +28,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                 if(lastRecord.recordType != RecordTypes.ExpressionType)
                 {
                     errors.Add(string.Format("Grammar error, expression validation at line {0} encountered an illegal record: \"{1}\"", lastToken.getLine(), lastRecord.recordType.ToString()));
-                    return errors;
+                    continue;
                 }
 
                 expressions.AddLast((ExpressionRecord)lastRecord);

@@ -109,12 +109,15 @@ namespace COMP442_Assignment4.Syntactic
             SemanticAction verifyFactorReference = new VerifyFactorReference();
             SemanticAction addIdNameTolist = new AddIdNameToList();
             SemanticAction migrateVariableReference = new MigrateVariableReference();
-            SemanticAction addIndiceCountToList = new AddSimpleRecordToList(string.Empty, RecordTypes.IndiceCount);
+            SemanticAction addIndiceCountToList = new AddIndiceCountToList();
 
             SemanticAction migrateFunctionCall = new MigrateFunctionCall();
             SemanticAction addParamsCountToList = new AddSimpleRecordToList(string.Empty, RecordTypes.FunctionParamCount);
 
             SemanticAction checkAssignment = new CheckAssignment();
+
+            SemanticAction addIntToList = new AddConstIntOrFloat(true);
+            SemanticAction addFloatToList = new AddConstIntOrFloat(false);
 
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
@@ -176,7 +179,7 @@ namespace COMP442_Assignment4.Syntactic
             Rule r47 = new Rule(termPrime, new List<IProduceable> { multOp, basicAddTokenToList, factor, termPrime }); // termPrime -> multOp factor termPrime
             Rule r48 = new Rule(termPrime); // termPrime -> EPSILON
             Rule r49 = new Rule(factor, new List<IProduceable> { addStartFactor, factorVarOrFunc, verifyFactorReference }); // factor -> factorVarOrFunc
-            Rule r50 = new Rule(factor, new List<IProduceable> { num, new AddConstNum() }); // factor -> num 
+            Rule r50 = new Rule(factor, new List<IProduceable> { num }); // factor -> num 
             Rule r51 = new Rule(factor, new List<IProduceable> { TokenList.OpenParanthesis, arithExpr, TokenList.CloseParanthesis }); // factor -> ( arithExpr )
             Rule r52 = new Rule(factor, new List<IProduceable> { TokenList.Not, factor }); // factor -> not factor
             Rule r53 = new Rule(factor, new List<IProduceable> { sign, factor }); // factor -> sign factor
@@ -224,8 +227,8 @@ namespace COMP442_Assignment4.Syntactic
             Rule r89 = new Rule(multOp, new List<IProduceable> { TokenList.And });
 
             // num -> integer | float
-            Rule r90 = new Rule(num, new List<IProduceable> { TokenList.Integer});
-            Rule r91 = new Rule(num, new List<IProduceable> { TokenList.Float});
+            Rule r90 = new Rule(num, new List<IProduceable> { TokenList.Integer, addIntToList});
+            Rule r91 = new Rule(num, new List<IProduceable> { TokenList.Float, addFloatToList});
 
             // I didn't write this out by hand, trust me
             rules.AddRange(new List<Rule> { r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14,
