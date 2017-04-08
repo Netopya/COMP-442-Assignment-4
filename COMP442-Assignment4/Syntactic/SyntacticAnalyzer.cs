@@ -122,6 +122,12 @@ namespace COMP442_Assignment4.Syntactic
 
             SemanticAction makeArithmExpr = new MakeArithmExpression();
 
+            SemanticAction generatePutCode = new GeneratePutCode();
+
+            SemanticAction addEntryLine = new AddLineCode("entry");
+            SemanticAction addHltLine = new AddLineCode("hlt");
+
+
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
             Rule r2 = new Rule(classDecl, new List<IProduceable> {
@@ -132,7 +138,7 @@ namespace COMP442_Assignment4.Syntactic
             Rule r5 = new Rule(varFuncList); // varFuncList -> EPSILON
             Rule r6 = new Rule(varFunc, new List<IProduceable> { varDecl, migrateVariableToList, makeVariable }); // varFunc-> varDecl
             Rule r7 = new Rule(varFunc, new List<IProduceable> { funcDef, closeTable }); // varFunc-> funcDef
-            Rule r8 = new Rule(progBody, new List<IProduceable> { TokenList.Program, makeProgramTable, funcBody, closeTable, TokenList.SemiColon, funcList }); //progBody -> program funcBody ; funcList
+            Rule r8 = new Rule(progBody, new List<IProduceable> { TokenList.Program, makeProgramTable, addEntryLine, funcBody, addHltLine, closeTable, TokenList.SemiColon, funcList }); //progBody -> program funcBody ; funcList
             Rule r9 = new Rule(funcList, new List<IProduceable> { type, addTypeToList, TokenList.Identifier, addIdToList, funcDef, closeTable, funcList}); //funcList -> type id funcDef funcList 
             Rule r10 = new Rule(funcList); // funcList -> EPSILON
             Rule r11 = new Rule(funcDef, new List<IProduceable> { TokenList.OpenParanthesis, fParams, makeFuncTable, TokenList.CloseParanthesis, funcBody, TokenList.SemiColon}); //funcDef -> ( fParams ) funcBody ;
@@ -159,7 +165,7 @@ namespace COMP442_Assignment4.Syntactic
             Rule r26 = new Rule(statement, new List<IProduceable> {
                 TokenList.Get, TokenList.OpenParanthesis, TokenList.Identifier, variable, TokenList.CloseParanthesis, TokenList.SemiColon
             }); // statement -> get(id variable);
-            Rule r27 = new Rule(statement, new List<IProduceable> { TokenList.Put, TokenList.OpenParanthesis, expr, TokenList.CloseParanthesis, TokenList.SemiColon }); // statement -> put ( expr ) ;
+            Rule r27 = new Rule(statement, new List<IProduceable> { TokenList.Put, TokenList.OpenParanthesis, expr, TokenList.CloseParanthesis, generatePutCode, TokenList.SemiColon }); // statement -> put ( expr ) ;
             Rule r28 = new Rule(statement, new List<IProduceable> { TokenList.Return, TokenList.OpenParanthesis, expr, TokenList.CloseParanthesis, TokenList.SemiColon }); // statement -> return ( expr ) ;
             Rule r29 = new Rule(assignStat, new List<IProduceable> { variable, assignOp, expr, checkAssignment }); //assignStat -> variable assignOp expr
             Rule r30 = new Rule(statBlock, new List<IProduceable> { TokenList.OpenCurlyBracket, statementList, TokenList.CloseCurlyBracket }); // statBlock -> { statementList }
@@ -298,8 +304,6 @@ namespace COMP442_Assignment4.Syntactic
             symbolTableStack.Push(global);
 
             MoonCodeResult moonCode = new MoonCodeResult();
-            moonCode.AddLine("program", "entry");
-
 
             // The table driven algorithm as seen in class slides
             while(parseStack.Peek() != TokenList.EndOfProgram)
@@ -356,7 +360,6 @@ namespace COMP442_Assignment4.Syntactic
                 results.Derivation.Add(new List<IProduceable>(parseStack));
             }
 
-            moonCode.AddLine("program","hlt");
             results.MoonCode = moonCode;
 
             return results;

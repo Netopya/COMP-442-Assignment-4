@@ -30,13 +30,13 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             while(expressions.Count < 2)
             {
-                SemanticRecord record = semanticRecordTable.Pop();
-
                 if (!semanticRecordTable.Any())
                 {
                     errors.Add(string.Format("Grammar error: Not enough expressions to validate arithmetic operation at line {0}", lastToken.getLine()));
                     return errors;
                 }
+
+                SemanticRecord record = semanticRecordTable.Pop();
 
                 BasicTokenRecord tokenRec = record as BasicTokenRecord;
                 if (tokenRec != null)

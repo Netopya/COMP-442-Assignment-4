@@ -104,7 +104,7 @@ namespace COMP442_Assignment4.SymbolTables
             if (!string.IsNullOrEmpty(specialName))
                 names.AddFirst(specialName);
 
-            names.AddFirst(IDGenerator.GetNext());
+            names.AddLast(IDGenerator.GetNext());
 
             return string.Join("_", names);
         }

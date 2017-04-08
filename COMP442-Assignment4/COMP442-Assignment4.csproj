@@ -75,12 +75,14 @@
     <Compile Include="SymbolTables\SemanticActions\AddIdNameToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddIdToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddIndiceCountToList.cs" />
+    <Compile Include="SymbolTables\SemanticActions\AddLineCode.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddSimpleRecordToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddSizeToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddTokenToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddTypeToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\CheckAssignment.cs" />
     <Compile Include="SymbolTables\SemanticActions\CloseTable.cs" />
+    <Compile Include="SymbolTables\SemanticActions\GeneratePutCode.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeArithmExpression.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeClassTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeFunctionTable.cs" />
