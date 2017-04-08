@@ -1,8 +1,9 @@
-
+global
 test_name    dw 0
 a_a dw -1
 b_a dw -2
-            entry
+
+start       entry
             
             addi r4,r4,48
             addi r5,r5,2

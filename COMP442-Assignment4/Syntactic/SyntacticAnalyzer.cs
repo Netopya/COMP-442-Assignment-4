@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using COMP442_Assignment4.SymbolTables.SemanticActions;
+using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.Syntactic
 {
@@ -296,8 +297,8 @@ namespace COMP442_Assignment4.Syntactic
             
             symbolTableStack.Push(global);
 
-            LinkedList<string> moonCode = new LinkedList<string>();
-            moonCode.AddFirst("entry");
+            MoonCodeResult moonCode = new MoonCodeResult();
+            moonCode.AddLine("program", "entry");
 
 
             // The table driven algorithm as seen in class slides
@@ -355,7 +356,7 @@ namespace COMP442_Assignment4.Syntactic
                 results.Derivation.Add(new List<IProduceable>(parseStack));
             }
 
-            moonCode.AddLast("hlt");
+            moonCode.AddLine("program","hlt");
             results.MoonCode = moonCode;
 
             return results;

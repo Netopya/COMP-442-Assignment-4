@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using COMP442_Assignment4.Tokens;
 using COMP442_Assignment4.SymbolTables.SemanticRecords;
 using COMP442_Assignment4.Lexical;
+using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
@@ -17,7 +18,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     public abstract class SemanticAction : IProduceable
     {
         // This funcion is executed when the symbol is consumed
-        public abstract List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode);
+        public abstract List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode);
 
         public List<Token> getFirstSet()
         {

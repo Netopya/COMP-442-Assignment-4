@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using COMP442_Assignment4.Lexical;
 using COMP442_Assignment4.SymbolTables.SemanticRecords;
 using COMP442_Assignment4.Tokens;
+using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
@@ -19,15 +20,13 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             { TokenList.Slash, "div"}
         };
 
-        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, LinkedList<string> moonCode)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
         {
             string valA = string.Empty, valB = string.Empty;
             Token op = null;
 
             LinkedList<ExpressionRecord> expressions = new LinkedList<ExpressionRecord>();
             List<string> errors = new List<string>();
-
-            int i = 0;
 
             while(expressions.Count < 2)
             {

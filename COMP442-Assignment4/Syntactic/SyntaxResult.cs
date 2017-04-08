@@ -1,4 +1,5 @@
-﻿using COMP442_Assignment4.SymbolTables;
+﻿using COMP442_Assignment4.CodeGeneration;
+using COMP442_Assignment4.SymbolTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace COMP442_Assignment4.Syntactic
         public List<string> Errors;
         public SymbolTable SymbolTable;
         public List<string> SemanticErrors;
-        public LinkedList<string> MoonCode;
+        public MoonCodeResult MoonCode;
 
         public SyntaxResult(SymbolTable symbolTable)
         {
