@@ -113,7 +113,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
                 if (parameters.Count() != ((FunctionCallRecord)currentLink).GetParameterCount())
                 {
-                    errors.Add(string.Format("Identifier {0} at line {1} does not have the correct number of parameters. Counted {2} expected {3}"
+                    errors.Add(string.Format("Function call {0} at line {1} does not have the correct number of parameters. Counted {2} expected {3}"
                         , currentLink.getValue(), lastToken.getLine(), ((FunctionCallRecord)currentLink).GetParameterCount(), parameters.Count()));
                     return false;
                 }
@@ -124,7 +124,9 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
                     foreach(var parameterCompare in parameterComparers)
                     {
-
+                        if (parameterCompare.aparam.GetExpressionType() != parameterCompare.fparam.getVariable().getClass())
+                            errors.Add(string.Format("Cannot convert {0} to {1} in parameter at line {2}"
+                                , parameterCompare.aparam.GetExpressionType().getName(), parameterCompare.fparam.getVariable().getClass().getName(), lastToken.getLine()));
                     }
                 }
 
