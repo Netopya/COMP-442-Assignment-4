@@ -35,10 +35,24 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                 expressions.AddLast((ExpressionRecord)lastRecord);
             }
 
-            ClassEntry type1 = expressions.First.Value.GetExpressionType();
-            ClassEntry type2 = expressions.Last.Value.GetExpressionType();
-            if (type1 != type2)
-                errors.Add(string.Format("Cannot equate at line {0} a value of type {1} to {2}", lastToken.getLine(), type1.getName(), type2.getName()));
+            ExpressionRecord type1 = expressions.First.Value;
+            ExpressionRecord type2 = expressions.Last.Value;
+            if (type1.GetExpressionType() != type2.GetExpressionType())
+                errors.Add(string.Format("Cannot equate at line {0} a value of type {1} to {2}", lastToken.getLine(), type1.GetExpressionType().getName(), type2.GetExpressionType().getName()));
+
+
+            SymbolTable currentScope = symbolTable.Peek();
+            string outAddress = string.Empty;
+
+            if (currentScope.getParent() == null)
+                errors.Add(string.Format("Cannot perform an assignment operation outside of a function"));
+            else
+            {
+                moonCode.AddLine(currentScope.getParent().getAddress(), string.Format(@"
+                    lw r2, {0}(r0)
+                    sw {1}(r0), r2
+                ", type1.GetAddress(), type2.GetAddress()));
+            }
 
             return errors;
         }
