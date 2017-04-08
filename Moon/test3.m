@@ -3,12 +3,12 @@ global
     align
 program
     entry
-    addi r1, r0, 49
+    addi r1, r0, 1
+    getc r3
+    add r2, r1, r3
     
-    addi r2, r0, 4
-    
-    sw cake(r2), r1
-    lw r3, cake(r2)
+    sw cake(r0), r2
+    lw r3, cake(r0)
     
     
     putc r3

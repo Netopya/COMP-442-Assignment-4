@@ -123,6 +123,7 @@ namespace COMP442_Assignment4.Syntactic
             SemanticAction makeArithmExpr = new MakeArithmExpression();
 
             SemanticAction generatePutCode = new GeneratePutCode();
+            SemanticAction generateGetCode = new GenerateGetCode();
 
             SemanticAction addEntryLine = new AddLineCode("entry");
             SemanticAction addHltLine = new AddLineCode("hlt");
@@ -163,7 +164,7 @@ namespace COMP442_Assignment4.Syntactic
                 expr, TokenList.SemiColon, arithExpr, relExpr, TokenList.SemiColon, TokenList.Identifier, assignStat, TokenList.CloseParanthesis, statBlock, TokenList.SemiColon
             }); // statement -> for ( type id assignOp expr ; relExpr ; id assignStat ) statBlock ;
             Rule r26 = new Rule(statement, new List<IProduceable> {
-                TokenList.Get, TokenList.OpenParanthesis, TokenList.Identifier, variable, TokenList.CloseParanthesis, TokenList.SemiColon
+                TokenList.Get, TokenList.OpenParanthesis, TokenList.Identifier, variable, TokenList.CloseParanthesis, generateGetCode, TokenList.SemiColon
             }); // statement -> get(id variable);
             Rule r27 = new Rule(statement, new List<IProduceable> { TokenList.Put, TokenList.OpenParanthesis, expr, TokenList.CloseParanthesis, generatePutCode, TokenList.SemiColon }); // statement -> put ( expr ) ;
             Rule r28 = new Rule(statement, new List<IProduceable> { TokenList.Return, TokenList.OpenParanthesis, expr, TokenList.CloseParanthesis, TokenList.SemiColon }); // statement -> return ( expr ) ;

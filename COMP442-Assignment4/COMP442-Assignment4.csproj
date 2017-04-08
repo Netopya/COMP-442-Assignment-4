@@ -82,6 +82,7 @@
     <Compile Include="SymbolTables\SemanticActions\AddTypeToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\CheckAssignment.cs" />
     <Compile Include="SymbolTables\SemanticActions\CloseTable.cs" />
+    <Compile Include="SymbolTables\SemanticActions\GenerateGetCode.cs" />
     <Compile Include="SymbolTables\SemanticActions\GeneratePutCode.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeArithmExpression.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeClassTable.cs" />
