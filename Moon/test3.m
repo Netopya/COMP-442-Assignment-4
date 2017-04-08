@@ -3,13 +3,21 @@ global
     align
 program
     entry
-    addi r1, r0, 1
-    getc r3
-    add r2, r1, r3
+    addi r1, r0, 2
+    addi r2, r0, 1
+    and r3, r1, r2
     
-    sw cake(r0), r2
-    lw r3, cake(r0)
+    bz r3, zero_15
+    addi r3, r0, 1
+    %sw arithmExpr_program_14(r0), r2
+    j endop_15
+    zero_15 addi r3, r0, 0  %sw arithmExpr_program_14(r0), r0
+    endop_15
+                
+                
+    addi r4, r0, 48
+    add r5, r4, r3
     
     
-    putc r3
+    putc r5
     hlt

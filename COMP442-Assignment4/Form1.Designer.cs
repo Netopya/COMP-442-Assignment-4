@@ -476,7 +476,7 @@
             this.ClientSize = new System.Drawing.Size(876, 457);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
-            this.Text = "COMP 442 Assignment 3 - Michael Bilinsky 26992358";
+            this.Text = "COMP 442 Assignment 4 - Michael Bilinsky 26992358";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

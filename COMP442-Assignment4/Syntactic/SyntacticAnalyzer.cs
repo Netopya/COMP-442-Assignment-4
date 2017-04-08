@@ -179,7 +179,7 @@ namespace COMP442_Assignment4.Syntactic
             Rule r37 = new Rule(expr, new List<IProduceable> { arithExpr, relOption }); // expr -> arithExpr relOption
             Rule r38 = new Rule(relOption, new List<IProduceable> { relExpr }); // relOption->relExpr
             Rule r39 = new Rule(relOption); // relOption -> EPSILON
-            Rule r40 = new Rule(relExpr, new List<IProduceable> { relOp, arithExpr }); //relExpr -> relOp arithExpr
+            Rule r40 = new Rule(relExpr, new List<IProduceable> { relOp, basicAddTokenToList , arithExpr, makeArithmExpr }); //relExpr -> relOp arithExpr
             Rule r41 = new Rule(arithExpr, new List<IProduceable> { term, arithExprPrime }); // arithExpr -> term arithExprPrime
             Rule r42 = new Rule(arithExprPrime, new List<IProduceable> { addOp, basicAddTokenToList, term, makeArithmExpr, arithExprPrime }); //arithExprPrime -> addOp term arithExprPrime
             Rule r43 = new Rule(arithExprPrime); // arithExprPrime -> EPSILON

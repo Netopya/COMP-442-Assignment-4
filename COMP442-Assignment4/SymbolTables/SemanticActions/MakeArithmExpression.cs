@@ -17,12 +17,20 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             { TokenList.Plus, "add"},
             { TokenList.Minus, "sub"},
             { TokenList.Asterisk, "mul"},
-            { TokenList.Slash, "div"}
+            { TokenList.Slash, "div"},
+            { TokenList.DoubleEquals, "ceq" },
+            { TokenList.NotEqual, "cne" },
+            { TokenList.LessThan, "clt" },
+            { TokenList.GreaterThan, "cgt" },
+            { TokenList.LessThanOrEqual, "cle" },
+            { TokenList.GreaterThanOrEqual, "cge" },
+            { TokenList.And, "and" },
+            { TokenList.Or, "or" }
         };
 
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
         {
-            string valA = string.Empty, valB = string.Empty;
+            //string valA = string.Empty, valB = string.Empty;
             Token op = null;
 
             LinkedList<ExpressionRecord> expressions = new LinkedList<ExpressionRecord>();
@@ -59,8 +67,8 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             //code.ForEach(x => moonCode.AddLast(x));
 
-            ExpressionRecord type1 = expressions.First.Value;
-            ExpressionRecord type2 = expressions.Last.Value;
+            ExpressionRecord type1 = expressions.Last.Value;
+            ExpressionRecord type2 = expressions.First.Value;
 
             if (type1.GetExpressionType() != AddTypeToList.intClass || type2.GetExpressionType() != AddTypeToList.intClass)
                 errors.Add(string.Format("Cannot perform arithmetic operation at line {0} between factors of type {1} and {2}"
@@ -71,6 +79,24 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             if (currentScope.getParent() == null)
                 errors.Add(string.Format("Cannot perform an arithemetic operation outside of a function"));
+            else if(op == TokenList.And || op == TokenList.Or)
+            {
+                outAddress = Entry.MakeAddressForEntry(currentScope.getParent(), "arithmExpr");
+                string jumpId = IDGenerator.GetNext();
+
+                moonCode.AddGlobal(string.Format("{0} dw 0", outAddress));
+                moonCode.AddLine(currentScope.getParent().getAddress(), string.Format(@"
+                    lw r3, {0}(r0)
+                    lw r4, {1}(r0)
+                    {2} r2, r3, r4
+                    bz r2, zero_{4}
+                    addi r2, r0, 1
+                    sw {3}(r0), r2
+                    j endop_{4}
+                    zero_{4} sw {3}(r0), r0
+                    endop_{4}
+                ", type1.GetAddress(), type2.GetAddress(), opLists[op], outAddress, jumpId));
+            }
             else
             {
                 outAddress = Entry.MakeAddressForEntry(currentScope.getParent(), "arithmExpr");
