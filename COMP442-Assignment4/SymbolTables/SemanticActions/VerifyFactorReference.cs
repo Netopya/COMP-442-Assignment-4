@@ -61,14 +61,17 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                     //return errors;
             }
 
-            ClassEntry expressionType = new ClassEntry("undefined");
+            ClassEntry expressionType = new ClassEntry("undefined", 0);
 
             if (linkedVariable is VarParamEntry)
                 expressionType = ((VarParamEntry)linkedVariable).getVariable().getClass();
             else if(linkedVariable is FunctionEntry)
                 expressionType = ((FunctionEntry)linkedVariable).GetReturnType();
 
-            semanticRecordTable.Push(new ExpressionRecord(expressionType, linkedVariable.getAddress()));
+            if (linkedVariable == null)
+                errors.Add(string.Format("Grammar error: Could not link variable at line {0}", lastToken.getLine()));
+            else
+                semanticRecordTable.Push(new ExpressionRecord(expressionType, linkedVariable.getAddress()));
 
             return errors;
         }

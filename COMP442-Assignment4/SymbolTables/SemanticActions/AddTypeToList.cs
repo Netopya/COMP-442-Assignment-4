@@ -14,8 +14,8 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     public class AddTypeToList : SemanticAction
     {
         // Predefined class entries for int and float types
-        public static ClassEntry intClass = new ClassEntry("int");
-        public static ClassEntry floatClass = new ClassEntry("float");
+        public static ClassEntry intClass = new ClassEntry("int", 4);
+        public static ClassEntry floatClass = new ClassEntry("float", 4);
 
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
         {
@@ -57,7 +57,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             else
             {
                 errors.Add(string.Format("Type name: {0} does not exist at line {1}", searchType, lastToken.getLine()));
-                semanticRecordTable.Push(new SemanticRecord(new ClassEntry(searchType)));
+                semanticRecordTable.Push(new SemanticRecord(new ClassEntry(searchType, 0)));
             }
 
             return errors;

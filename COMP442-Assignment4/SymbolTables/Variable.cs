@@ -61,5 +61,10 @@ namespace COMP442_Assignment4.SymbolTables
 
             return sb.ToString();
         }
+
+        public int GetSize()
+        {
+            return type.GetSize() * dimensions.Aggregate(1, (r, x) => r * x);
+        }
     }
 }
