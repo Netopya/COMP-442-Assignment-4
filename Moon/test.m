@@ -1,12 +1,15 @@
 global
-test_name    dw 0
+test_name    dw 55
 a_a dw -1
 b_a dw -2
 
 start       entry
             
-            addi r4,r4,48
-            addi r5,r5,2
+            lw r4, test_name(r0)
+            putc r4
+            
+            addi r4,r0,48
+            addi r5,r0,2
             add r6,r4,r5
             sw test_name(r0), r6
             lw r7, test_name(r0)

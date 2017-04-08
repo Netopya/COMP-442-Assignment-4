@@ -39,22 +39,7 @@ namespace COMP442_Assignment4.SymbolTables
             this.kind = kind;
             this.name = name;
 
-            LinkedList<string> names = new LinkedList<string>();
-            Entry current = this;
-
-            while(current != null)
-            {
-                names.AddFirst(current.getName());
-
-                if (current.getParent() == null)
-                    break;
-
-                current = current.getParent().getParent();
-            }
-
-            names.AddFirst(IDGenerator.GetNext());
-
-            address = string.Join("_", names);
+            address = MakeAddressForEntry(this);
         }
 
         // Get a symbol table for the inner scope of this entry
@@ -100,6 +85,28 @@ namespace COMP442_Assignment4.SymbolTables
         public string getAddress()
         {
             return address;
+        }
+
+        public static string MakeAddressForEntry(Entry entry, string specialName = "")
+        {
+            LinkedList<string> names = new LinkedList<string>();
+
+            while (entry != null)
+            {
+                names.AddFirst(entry.getName());
+
+                if (entry.getParent() == null)
+                    break;
+
+                entry = entry.getParent().getParent();
+            }
+
+            if (!string.IsNullOrEmpty(specialName))
+                names.AddFirst(specialName);
+
+            names.AddFirst(IDGenerator.GetNext());
+
+            return string.Join("_", names);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             else if(linkedVariable is FunctionEntry)
                 expressionType = ((FunctionEntry)linkedVariable).GetReturnType();
 
-            semanticRecordTable.Push(new ExpressionRecord(expressionType));
+            semanticRecordTable.Push(new ExpressionRecord(expressionType, linkedVariable.getAddress()));
 
             return errors;
         }

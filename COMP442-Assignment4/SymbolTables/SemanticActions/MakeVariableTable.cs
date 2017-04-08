@@ -23,7 +23,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             // Only declare variables for functions (not class member variables)
             if(currentTable.getParent() is FunctionEntry)
-                moonCode.AddLine("global", string.Format("{0} dw 0", variableEntry.getAddress()));
+                moonCode.AddGlobal(string.Format("{0} dw 0", variableEntry.getAddress()));
 
             return new List<string>();
         }

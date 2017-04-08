@@ -26,6 +26,11 @@ namespace COMP442_Assignment4.CodeGeneration
                 map.AddLast(line);
         }
 
+        public void AddGlobal(string line)
+        {
+            AddLine("global", line);
+        }
+
         public string GenerateCode()
         {
             StringBuilder code = new StringBuilder();

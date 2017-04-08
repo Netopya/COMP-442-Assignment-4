@@ -20,7 +20,22 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
         {
-            semanticRecordTable.Push(new ExpressionRecord(intType ? AddTypeToList.intClass : AddTypeToList.floatClass));
+            List<string> errors = new List<string>();
+            string address = string.Empty;
+            if(symbolTable.Any() || symbolTable.Peek().getParent() == null)
+            {
+                address = Entry.MakeAddressForEntry(symbolTable.Peek().getParent(), "const");
+            }
+            else
+            {
+                errors.Add(string.Format("Cannot evaluate constant at line {0} since it is not in a scope", lastToken.getLine()));
+            }
+
+            ExpressionRecord expression = new ExpressionRecord(intType ? AddTypeToList.intClass : AddTypeToList.floatClass, address);
+
+            moonCode.AddGlobal(string.Format("{0} dw {1}", expression.GetAddress(), lastToken.getSemanticName()));
+
+            semanticRecordTable.Push(expression);
             return new List<string>();
         }
 

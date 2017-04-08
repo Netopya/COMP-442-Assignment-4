@@ -59,13 +59,33 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             //code.ForEach(x => moonCode.AddLast(x));
 
-            ClassEntry type1 = expressions.First.Value.GetExpressionType();
-            ClassEntry type2 = expressions.Last.Value.GetExpressionType();
+            ExpressionRecord type1 = expressions.First.Value;
+            ExpressionRecord type2 = expressions.Last.Value;
 
-            if (type1 != AddTypeToList.intClass || type2 != AddTypeToList.intClass)
-                errors.Add(string.Format("Cannot perform arithmetic operation at line {0} between factors of type {1} and {2}", lastToken.getLine(), type1.getName(), type2.getName()));
+            if (type1.GetExpressionType() != AddTypeToList.intClass || type2.GetExpressionType() != AddTypeToList.intClass)
+                errors.Add(string.Format("Cannot perform arithmetic operation at line {0} between factors of type {1} and {2}"
+                    , lastToken.getLine(), type1.GetExpressionType().getName(), type2.GetExpressionType().getName()));
 
-            semanticRecordTable.Push(new ExpressionRecord(AddTypeToList.intClass));
+            SymbolTable currentScope = symbolTable.Peek();
+            string outAddress = string.Empty;
+
+            if (currentScope.getParent() == null)
+                errors.Add(string.Format("Cannot perform an arithemetic operation outside of a function"));
+            else
+            {
+                outAddress = Entry.MakeAddressForEntry(currentScope.getParent(), "arithmExpr");
+
+                moonCode.AddGlobal(string.Format("{0} dw 0", outAddress));
+                moonCode.AddLine(currentScope.getParent().getAddress(),string.Format(@"
+                    lw r3, {0}(r0)
+                    lw r4, {1}(r0)
+                    {2} r2, r3, r4
+                    sw {3}(r0), r2
+                ", type1.GetAddress(), type2.GetAddress(), opLists[op], outAddress));
+            }
+            
+
+            semanticRecordTable.Push(new ExpressionRecord(AddTypeToList.intClass, outAddress));
 
             return errors;
         }
