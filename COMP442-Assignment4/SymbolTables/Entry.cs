@@ -1,4 +1,5 @@
-﻿using System;
+﻿using COMP442_Assignment4.CodeGeneration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,7 +44,7 @@ namespace COMP442_Assignment4.SymbolTables
 
             while(current != null)
             {
-                names.AddLast(current.getName());
+                names.AddFirst(current.getName());
 
                 if (current.getParent() == null)
                     break;
@@ -51,7 +52,9 @@ namespace COMP442_Assignment4.SymbolTables
                 current = current.getParent().getParent();
             }
 
-            address = string.Join("_", names.Reverse());
+            names.AddFirst(IDGenerator.GetNext());
+
+            address = string.Join("_", names);
         }
 
         // Get a symbol table for the inner scope of this entry

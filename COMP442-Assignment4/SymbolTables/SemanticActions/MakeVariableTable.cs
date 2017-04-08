@@ -21,7 +21,9 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             Entry variableEntry = new VarParamEntry(currentTable, variableRecord.getVariable(), EntryKinds.variable);
 
-            moonCode.AddLine("global", string.Format("{0} dw 0", variableEntry.getAddress()));
+            // Only declare variables for functions (not class member variables)
+            if(currentTable.getParent() is FunctionEntry)
+                moonCode.AddLine("global", string.Format("{0} dw 0", variableEntry.getAddress()));
 
             return new List<string>();
         }
