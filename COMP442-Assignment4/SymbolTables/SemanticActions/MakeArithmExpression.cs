@@ -24,33 +24,51 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             string valA = string.Empty, valB = string.Empty;
             Token op = null;
 
+            LinkedList<ExpressionRecord> expressions = new LinkedList<ExpressionRecord>();
+            List<string> errors = new List<string>();
+
             int i = 0;
 
-            while(i < 3)
+            while(expressions.Count < 2)
             {
                 SemanticRecord record = semanticRecordTable.Pop();
 
-                switch(i)
+                if (!semanticRecordTable.Any())
                 {
-                    case 0:
-                        valA = record.getValue();
-                        break;
-                    case 1:
-                        op = ((BasicTokenRecord)record).getToken();
-                        break;
-                    case 2:
-                        valB = record.getValue();
-                        break;
+                    errors.Add(string.Format("Grammar error: Not enough expressions to validate arithmetic operation at line {0}", lastToken.getLine()));
+                    return errors;
                 }
 
-                i++;
+                BasicTokenRecord tokenRec = record as BasicTokenRecord;
+                if (tokenRec != null)
+                {
+                    op = tokenRec.getToken();
+                    continue;
+                }
+                
+                if(record is ExpressionRecord)
+                {
+                    expressions.AddLast(record as ExpressionRecord);
+                }
+                else
+                {
+                    errors.Add(string.Format("Grammar error: record {0} at line {1} is not allowed during an arithmetic expression validation", record.recordType.ToString(), lastToken.getLine()));
+                }
             }
 
-            List<string> code = new List<string> { string.Format("addi r3, r0, {0}", valA), string.Format("addi r4, r0, {0}", valB), string.Format("{0} r2, r3, r4", opLists[op]) };
+            //List<string> code = new List<string> { string.Format("addi r3, r0, {0}", valA), string.Format("addi r4, r0, {0}", valB), string.Format("{0} r2, r3, r4", opLists[op]) };
 
-            code.ForEach(x => moonCode.AddLast(x));
+            //code.ForEach(x => moonCode.AddLast(x));
 
-            return new List<string>();
+            ClassEntry type1 = expressions.First.Value.GetExpressionType();
+            ClassEntry type2 = expressions.Last.Value.GetExpressionType();
+
+            if (type1 != AddTypeToList.intClass || type2 != AddTypeToList.intClass)
+                errors.Add(string.Format("Cannot perform arithmetic operation at line {0} between factors of type {1} and {2}", lastToken.getLine(), type1.getName(), type2.getName()));
+
+            semanticRecordTable.Push(new ExpressionRecord(AddTypeToList.intClass));
+
+            return errors;
         }
 
         public override string getProductName()

@@ -119,6 +119,8 @@ namespace COMP442_Assignment4.Syntactic
             SemanticAction addIntToList = new AddConstIntOrFloat(true);
             SemanticAction addFloatToList = new AddConstIntOrFloat(false);
 
+            SemanticAction makeArithmExpr = new MakeArithmExpression();
+
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
             Rule r2 = new Rule(classDecl, new List<IProduceable> {
@@ -171,12 +173,12 @@ namespace COMP442_Assignment4.Syntactic
             Rule r39 = new Rule(relOption); // relOption -> EPSILON
             Rule r40 = new Rule(relExpr, new List<IProduceable> { relOp, arithExpr }); //relExpr -> relOp arithExpr
             Rule r41 = new Rule(arithExpr, new List<IProduceable> { term, arithExprPrime }); // arithExpr -> term arithExprPrime
-            Rule r42 = new Rule(arithExprPrime, new List<IProduceable> { addOp, basicAddTokenToList, term, new MakeArithmExpression(), arithExprPrime }); //arithExprPrime -> addOp term arithExprPrime
+            Rule r42 = new Rule(arithExprPrime, new List<IProduceable> { addOp, basicAddTokenToList, term, makeArithmExpr, arithExprPrime }); //arithExprPrime -> addOp term arithExprPrime
             Rule r43 = new Rule(arithExprPrime); // arithExprPrime -> EPSILON
             Rule r44 = new Rule(sign, new List<IProduceable> { TokenList.Plus }); // sign -> +
             Rule r45 = new Rule(sign, new List<IProduceable> { TokenList.Minus }); // sign -> -
             Rule r46 = new Rule(term, new List<IProduceable> { factor, termPrime}); //term -> factor termPrime
-            Rule r47 = new Rule(termPrime, new List<IProduceable> { multOp, basicAddTokenToList, factor, termPrime }); // termPrime -> multOp factor termPrime
+            Rule r47 = new Rule(termPrime, new List<IProduceable> { multOp, basicAddTokenToList, factor, makeArithmExpr, termPrime }); // termPrime -> multOp factor termPrime
             Rule r48 = new Rule(termPrime); // termPrime -> EPSILON
             Rule r49 = new Rule(factor, new List<IProduceable> { addStartFactor, factorVarOrFunc, verifyFactorReference }); // factor -> factorVarOrFunc
             Rule r50 = new Rule(factor, new List<IProduceable> { num }); // factor -> num 
