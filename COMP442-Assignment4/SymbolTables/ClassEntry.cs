@@ -40,7 +40,9 @@ namespace COMP442_Assignment4.SymbolTables
             if (child == null)
                 return defaultSize;
             else
-                return child.GetEntries().Where(x => x.getKind() == EntryKinds.variable).Sum(x => ((VarParamEntry)x).getVariable().GetSize());
+                return child.GetEntries()
+                    .Where(x => x.getKind() == EntryKinds.variable && ((VarParamEntry)x).getVariable().getClass() != this)
+                    .Sum(x => ((VarParamEntry)x).getVariable().GetSize());
         }
 
     }

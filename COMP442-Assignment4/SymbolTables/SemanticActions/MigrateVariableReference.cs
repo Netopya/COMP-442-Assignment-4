@@ -14,8 +14,19 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
         {
             int sizeCount = 0;
-            SemanticRecord top = semanticRecordTable.Pop();
+            
             List<string> errors = new List<string>();
+
+            if(!semanticRecordTable.Any())
+            {
+                errors.Add(string.Format("Grammar error at line {0}: could not migrate variable for emtpy stack", lastToken.getLine()));
+                return errors;
+            }
+
+
+            SemanticRecord top = semanticRecordTable.Pop();
+
+
 
             while (top.recordType != RecordTypes.IdNameReference)
             {
@@ -27,6 +38,11 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                     sizeCount--;
                 }
                     
+                if(!semanticRecordTable.Any())
+                {
+                    errors.Add(string.Format("Grammar error at {0}. Could not find Id name for variable", lastToken.getLine()));
+                    break;
+                }
 
                 top = semanticRecordTable.Pop();
             }

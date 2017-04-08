@@ -13,13 +13,26 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
         {
-            SemanticRecord lastRecord = semanticRecordTable.Pop();
             Stack<SemanticRecord> callChain = new Stack<SemanticRecord>();
             List<string> errors = new List<string>();
 
-            while(lastRecord.recordType != RecordTypes.FactorStart)
+            if (!semanticRecordTable.Any())
+            {
+                errors.Add(string.Format("Grammar error at line {0}: could not verify factor for emtpy stack", lastToken.getLine()));
+                return errors;
+            }
+
+            SemanticRecord lastRecord = semanticRecordTable.Pop();
+
+            while (lastRecord.recordType != RecordTypes.FactorStart)
             {
                 callChain.Push(lastRecord);
+
+                if (!semanticRecordTable.Any())
+                {
+                    errors.Add(string.Format("Grammar error at {0}. Could not find start for a factor", lastToken.getLine()));
+                    break;
+                }
 
                 lastRecord = semanticRecordTable.Pop();
             }
@@ -41,7 +54,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                 //return errors;
 
 
-            while (callChain.Any())
+            while (callChain.Any() && success)
             {
                 currentLink = callChain.Pop();
 
