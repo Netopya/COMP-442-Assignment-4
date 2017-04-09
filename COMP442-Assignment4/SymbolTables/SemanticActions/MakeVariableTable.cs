@@ -22,7 +22,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             Entry variableEntry = new VarParamEntry(currentTable, variableRecord.getVariable(), EntryKinds.variable);
 
             // Only declare variables for functions (not class member variables)
-            if(currentTable.getParent() is FunctionEntry)
+            //if(currentTable.getParent() is FunctionEntry)
             {
                 int size = variableRecord.getVariable().GetSize();
                 string address = variableEntry.getAddress();
