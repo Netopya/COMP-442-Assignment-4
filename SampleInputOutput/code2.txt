@@ -1,0 +1,26 @@
+class A {
+	int beer;
+};
+class B {
+	int okay;
+	A someFunc(int lol, float more) { };
+	int anotherFunc(){};
+};
+
+program {
+	A foo;
+	B bar;
+	int cake;
+	int baker;
+	float aFloat;
+
+	cake = baker;
+	cake = foo.beer;
+	foo = bar.someFunc(baker, aFloat);
+	
+	int reallyArray[3][4][7];
+
+	cake = reallyArray[3 + 1][cake][foo.beer];
+	reallyArray[3 + 1][cake][bar.anotherFunc()] = baker;
+
+};

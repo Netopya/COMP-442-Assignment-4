@@ -1,0 +1,56 @@
+Symbol Table:
+
+Global
+name: MyClass1, kind: classKind
+	Class Symbol Table: MyClass1
+	name: mc1v1, kind: variable, type: int[2][4]
+	name: mc1v2, kind: variable, type: float
+	name: mc1f1, kind: function, type: int : int, float[3]
+		Function Symbol Table: mc1f1
+		name: p1, kind: parameter, type: int
+		name: p2, kind: parameter, type: float[3]
+		name: fv1, kind: variable, type: int[3]
+	name: f2, kind: function, type: float : int[3]
+		Function Symbol Table: f2
+		name: f2p1, kind: parameter, type: int[3]
+		name: mc1v3, kind: variable, type: int
+name: MyClass2, kind: classKind
+	Class Symbol Table: MyClass2
+	name: mc1v1, kind: variable, type: int[2][4]
+	name: fp1, kind: variable, type: float
+	name: m2, kind: variable, type: MyClass1[3]
+	name: f2, kind: function, type: MyClass1
+		Function Symbol Table: f2
+		name: mc1v2, kind: variable, type: float
+	name: f1, kind: function, type: int : MyClass1, MyClass1[4][5]
+		Function Symbol Table: f1
+		name: f2p1, kind: parameter, type: MyClass1
+		name: f2p2, kind: parameter, type: MyClass1[4][5]
+		name: mc1v2, kind: variable, type: float
+	name: f3, kind: function, type: float : float[34]
+		Function Symbol Table: f3
+		name: bear, kind: parameter, type: float[34]
+		name: fv1, kind: variable, type: MyClass1
+		name: m1, kind: variable, type: MyClass1[3]
+name: program, kind: function
+	Function Symbol Table: program
+	name: m1, kind: variable, type: int
+	name: m2, kind: variable, type: float[3][2]
+	name: m4, kind: variable, type: MyClass1
+	name: m3, kind: variable, type: MyClass2[2]
+name: f1, kind: function, type: float : int[2][2], float
+	Function Symbol Table: f1
+	name: fp1, kind: parameter, type: int[2][2]
+	name: fp2, kind: parameter, type: float
+	name: fv2, kind: variable, type: int
+	name: fv1, kind: variable, type: MyClass1[3]
+name: f2, kind: function, type: int
+	Function Symbol Table: f2
+name: f3, kind: function, type: MyClass1 : float, int
+	Function Symbol Table: f3
+	name: fp1, kind: parameter, type: float
+	name: fp2, kind: parameter, type: int
+name: f4, kind: function, type: MyClass2 : MyClass1[3], float
+	Function Symbol Table: f4
+	name: fp1, kind: parameter, type: MyClass1[3]
+	name: fp2, kind: parameter, type: float

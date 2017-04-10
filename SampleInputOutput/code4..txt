@@ -1,0 +1,33 @@
+program {
+	int input;
+	int zero;
+	int space;
+
+	zero = 48;
+	space = 32;
+	
+	get(input);
+
+	put(input + 1);
+
+	put(space);
+
+	input = input - zero;
+	int result;
+	
+	result = input == 5;
+	
+	put(result + zero);
+
+	put(space);
+
+	result = input > 5;
+
+	put(result + 48);
+
+	put(space);
+
+	result = input < 5;
+
+	put(result + zero);
+};

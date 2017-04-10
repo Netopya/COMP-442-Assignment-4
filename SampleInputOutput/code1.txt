@@ -1,0 +1,19 @@
+class A {
+	int counter;
+	int bakers;
+
+	int someFunc()
+	{
+		float innerVar;
+	};
+};
+class B {
+	A theClass;		
+};
+
+program {
+	int foo;
+	B bar;
+	int cake[2][3];
+	A souvlaki[1][3][2];
+};

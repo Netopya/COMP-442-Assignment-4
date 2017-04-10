@@ -97,7 +97,9 @@ namespace COMP442_Assignment4
 
             string moonCodeText = result.MoonCode.GenerateCode();
 
-            outputToFile("outputMoonCode.txt", moonCodeText);
+            outputToFile("outputMoonCode.m", moonCodeText);
+
+            txtMoonCode.Text = moonCodeText;
 
             // Switch to the moon code output tab
             if (result.Derivation.Any())

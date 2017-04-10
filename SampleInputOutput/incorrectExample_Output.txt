@@ -1,0 +1,63 @@
+Symbol Table:
+
+Global
+name: MyClass1, kind: classKind
+	Class Symbol Table: MyClass1
+	name: mc1v1, kind: variable, type: int[2][4]
+	name: mc1v2, kind: variable, type: float
+	name: mc1v3, kind: variable, type: MyClass2[3]
+	name: mc1f1, kind: function, type: int : int, MyClass2[3]
+		Function Symbol Table: mc1f1
+		name: p1, kind: parameter, type: int
+		name: p2, kind: parameter, type: MyClass2[3]
+		name: fv1, kind: variable, type: MyClass2[3]
+	name: f2, kind: function, type: int : MyClass1[3]
+		Function Symbol Table: f2
+		name: f2p1, kind: parameter, type: MyClass1[3]
+		name: mc1v1, kind: variable, type: int
+name: MyClass2, kind: classKind
+	Class Symbol Table: MyClass2
+	name: mc1v1, kind: variable, type: int[2][4]
+	name: fp1, kind: variable, type: float
+	name: m2, kind: variable, type: MyClass2[3]
+	name: fp1, kind: function, type: int : float, int
+		Function Symbol Table: fp1
+		name: p1, kind: parameter, type: float
+		name: p1, kind: parameter, type: int
+		name: c1, kind: variable, type: float
+		name: c1, kind: variable, type: MyClass2
+	name: fp1, kind: function, type: MyClass1
+		Function Symbol Table: fp1
+name: MyClass2, kind: classKind
+	Class Symbol Table: MyClass2
+name: program, kind: function
+	Function Symbol Table: program
+	name: m1, kind: variable, type: int
+	name: m2, kind: variable, type: float[3][2]
+	name: m1, kind: variable, type: MyClass1[4][5]
+	name: m3, kind: variable, type: MyClass2[2]
+name: f1, kind: function, type: float : int[2][2], float
+	Function Symbol Table: f1
+	name: fp1, kind: parameter, type: int[2][2]
+	name: fp2, kind: parameter, type: float
+	name: fv2, kind: variable, type: int
+	name: fv1, kind: variable, type: MyClass1[3]
+name: f2, kind: function, type: int
+	Function Symbol Table: f2
+name: f2, kind: function, type: float
+	Function Symbol Table: f2
+
+    
+Errors:
+Type name: MyClass2 does not exist at line 5
+Type name: MyClass2 does not exist at line 6
+Type name: MyClass2 does not exist at line 7
+MyClass1's member variable or function parameter cannot refer to its own class at line 9
+Identifier mc1v1 at line 10 has already been declared
+MyClass2's member variable or function parameter cannot refer to its own class at line 17
+Identifier fp1 at line 19 has already been declared
+Identifier p1 at line 19 has already been declared
+Identifier fp1 at line 24 has already been declared
+Identifier MyClass2 at line 28 has already been declared
+Identifier m1 at line 35 has already been declared
+Identifier f2 at line 43 has already been declared
