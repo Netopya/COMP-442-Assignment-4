@@ -9,6 +9,7 @@ using COMP442_Assignment4.SymbolTables.SemanticRecords;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Add a specified line of code to mooncode
     class AddLineCode : SemanticAction
     {
         string line;
@@ -17,7 +18,6 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
         {
             this.line = line;
         }
-
 
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
         {

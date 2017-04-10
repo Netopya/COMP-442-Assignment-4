@@ -20,6 +20,7 @@ namespace COMP442_Assignment4.Syntactic
         automatically generated in this class.
 
         For COMP 442 Assignment 2 by Michael Bilinsky 26992358
+        Updated for Assignments 3 and 4
     */
     public class SyntacticAnalyzer
     {
@@ -94,6 +95,7 @@ namespace COMP442_Assignment4.Syntactic
             // The start production of this grammar
             startProduct = prog;
 
+            // Declaration of Semantic actions
             SemanticAction makeProgramTable = new MakeProgramTable();
             SemanticAction closeTable = new CloseTable();
             SemanticAction addTypeToList = new AddTypeToList();

@@ -9,6 +9,7 @@ using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Add a specified record type and value to the semantic stack
     class AddSimpleRecordToList : SemanticAction
     {
         string value;

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticRecords
 {
+    // A semantic record to store a function call along with expressions
+    // that would be evaluated and passed as parameters
     class FunctionCallRecord : SemanticRecord
     {
         LinkedList<ExpressionRecord> parameterExpressions;

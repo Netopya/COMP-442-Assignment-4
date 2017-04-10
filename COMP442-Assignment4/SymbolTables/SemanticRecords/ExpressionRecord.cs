@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticRecords
 {
+    // A semantic record for an expression
+    // Holds the return type for the expression and the address of the expression's result
     class ExpressionRecord : SemanticRecord
     {
         ClassEntry type;

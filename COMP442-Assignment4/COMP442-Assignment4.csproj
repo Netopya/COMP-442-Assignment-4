@@ -71,7 +71,6 @@
     <Compile Include="SymbolTables\Entry.cs" />
     <Compile Include="SymbolTables\FunctionEntry.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddConstIntOrFloat.cs" />
-    <Compile Include="SymbolTables\SemanticActions\AddConstNum.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddIdNameToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddIdToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddIndiceCountToList.cs" />

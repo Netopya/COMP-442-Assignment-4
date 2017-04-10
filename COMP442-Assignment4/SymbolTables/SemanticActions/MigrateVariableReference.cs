@@ -9,6 +9,7 @@ using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Create a semantic record for a variable reference with its name and array indices
     class MigrateVariableReference : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
@@ -26,10 +27,10 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             SemanticRecord top = semanticRecordTable.Pop();
 
-
-
+            // Accumulate indices until we hit the variable's name
             while (top.recordType != RecordTypes.IdNameReference)
             {
+                // Count the number of indices
                 sizeCount++;
 
                 if (top.recordType != RecordTypes.IndiceCount)
@@ -47,6 +48,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                 top = semanticRecordTable.Pop();
             }
 
+            // Create the new semantic record
             semanticRecordTable.Push(new VariableReferenceRecord(top.getValue(), sizeCount));
 
             return errors;

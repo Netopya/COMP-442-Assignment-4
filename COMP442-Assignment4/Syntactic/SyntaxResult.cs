@@ -11,7 +11,7 @@ namespace COMP442_Assignment4.Syntactic
     /*
         Class to store the results of a syntactic analysis
 
-        For COMP 442 Assignment 2 by Michael Bilinsky 26992358
+        For COMP 442 Assignment 2, 3 and 4 by Michael Bilinsky 26992358
     */
     public class SyntaxResult
     {

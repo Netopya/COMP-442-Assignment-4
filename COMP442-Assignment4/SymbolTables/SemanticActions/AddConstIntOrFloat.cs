@@ -9,8 +9,10 @@ using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Generate Moon code for a constant integer or float
     class AddConstIntOrFloat : SemanticAction
     {
+        // True is the action is for integers, false for floats
         bool intType;
 
         public AddConstIntOrFloat(bool intType)

@@ -9,6 +9,7 @@ using COMP442_Assignment4.SymbolTables.SemanticRecords;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Generate the moon code to put a character on the console
     class GeneratePutCode : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)

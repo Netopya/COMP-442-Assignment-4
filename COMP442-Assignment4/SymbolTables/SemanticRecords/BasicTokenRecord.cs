@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticRecords
 {
+    // A semantic record to store a token
     class BasicTokenRecord : SemanticRecord
     {
         Token token;

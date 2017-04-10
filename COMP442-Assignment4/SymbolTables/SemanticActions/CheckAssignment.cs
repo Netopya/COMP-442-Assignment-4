@@ -9,6 +9,7 @@ using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Check the validity of the assignment statement
     class CheckAssignment : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
@@ -16,6 +17,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             LinkedList<ExpressionRecord> expressions = new LinkedList<ExpressionRecord>();
             List<string> errors = new List<string>();
 
+            // Accumulate the last two expressions on the semantic stack
             while(expressions.Count < 2)
             {
                 if(!semanticRecordTable.Any())
@@ -35,6 +37,8 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                 expressions.AddLast((ExpressionRecord)lastRecord);
             }
 
+            // The first expression is the value we are reading
+            // while the second one is the expression we are writing to
             ExpressionRecord type1 = expressions.First.Value;
             ExpressionRecord type2 = expressions.Last.Value;
             if (type1.GetExpressionType() != type2.GetExpressionType())
@@ -48,6 +52,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                 errors.Add(string.Format("Cannot perform an assignment operation outside of a function"));
             else
             {
+                // Generate the code to read and store the value
                 moonCode.AddLine(currentScope.getParent().getAddress(), string.Format(@"
                     lw r2, {0}(r0)
                     sw {1}(r0), r2

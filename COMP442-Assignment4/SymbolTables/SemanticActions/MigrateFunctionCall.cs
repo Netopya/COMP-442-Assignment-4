@@ -9,6 +9,7 @@ using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Collect information regarding a function call and migrate all this information back to the semantic stack
     class MigrateFunctionCall : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
@@ -17,6 +18,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             List<string> errors = new List<string>();
             LinkedList<ExpressionRecord> expressionParameters = new LinkedList<ExpressionRecord>();
 
+            // Collect parameter expressions until we hit the function's name
             while (top.recordType != RecordTypes.IdNameReference)
             {
                 if (top.recordType != RecordTypes.ExpressionType)
@@ -31,6 +33,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                 top = semanticRecordTable.Pop();
             }
 
+            // Create the new semantic record
             semanticRecordTable.Push(new FunctionCallRecord(top.getValue(), expressionParameters));
 
             return errors;

@@ -11,6 +11,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
     class GenerateGetCode : SemanticAction
     {
+        // Generate the moon code to get a character from the user
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
         {
             List<string> errors = new List<string>();
@@ -24,13 +25,13 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             if (expr == null)
             {
-                errors.Add(string.Format("Grammar error at line {0}, can only put expressions", lastToken.getLine()));
+                errors.Add(string.Format("Grammar error at line {0}, can only get expressions", lastToken.getLine()));
                 return errors;
             }
 
             if (!symbolTable.Any() || symbolTable.Peek().getParent() == null)
             {
-                errors.Add(string.Format("Cannot place put command in empty scope"));
+                errors.Add(string.Format("Cannot place get command in empty scope"));
                 return errors;
             }
 

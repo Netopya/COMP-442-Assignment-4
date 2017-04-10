@@ -9,6 +9,7 @@ using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Collect information about a declared variable and migrate it back to the semantic stack
     class MigrateVariableToList : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
@@ -31,6 +32,8 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                         break;
                     case RecordTypes.TypeName:
                         variable.SetType(topRecord.getType());
+
+                        // Once we have the type we can create the record
                         SemanticRecord variableRecord = new SemanticRecord(variable);
                         semanticRecordTable.Push(variableRecord);
                         break;

@@ -9,6 +9,7 @@ using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // When indexing an array, ensure that we have a valid expression to index by
     class AddIndiceCountToList : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
@@ -25,7 +26,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                     errors.Add(string.Format("Array indice at line {0} is not a valid expression", lastToken.getLine()));
                 else if (record.GetExpressionType() != AddTypeToList.intClass)
                     errors.Add(string.Format("Array indice at line {0} is not a valid integer", lastToken.getLine()));
-                else
+                else // If the index is valid push a simple record to count this index
                     semanticRecordTable.Push(new SemanticRecord(RecordTypes.IndiceCount, string.Empty));
             }            
 

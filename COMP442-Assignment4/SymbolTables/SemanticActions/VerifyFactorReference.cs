@@ -9,6 +9,8 @@ using COMP442_Assignment4.CodeGeneration;
 
 namespace COMP442_Assignment4.SymbolTables.SemanticActions
 {
+    // Verify a factor that could be a chain of variables with a possible function call
+    // Ensure identifiers are declared, arrays are indexed properly, and parameters have the correct type
     class VerifyFactorReference : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken, MoonCodeResult moonCode)
@@ -24,6 +26,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
 
             SemanticRecord lastRecord = semanticRecordTable.Pop();
 
+            // Accumulate semantic records until we reach the start of the factor
             while (lastRecord.recordType != RecordTypes.FactorStart)
             {
                 callChain.Push(lastRecord);
@@ -40,6 +43,8 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             SemanticRecord currentLink = callChain.Pop();
             Entry linkedVariable = null;
 
+            // The first element in the chain is a reference to a locally accessible variable or function
+            // Go through symbol tables of increasing scope until we find the referenced identifier
             foreach (SymbolTable table in symbolTable)
             {
                 linkedVariable = table.GetEntries().FirstOrDefault(x => (x is VarParamEntry || x is FunctionEntry) && x.getName() == currentLink.getValue());
@@ -48,12 +53,10 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                     break;
             }
 
+            // Verify the validity of this initial reference
             bool success = VerifyLink(currentLink, linkedVariable, lastToken, errors);
 
-            //if (!success)
-                //return errors;
-
-
+            // Go through the call chain and verify each link
             while (callChain.Any() && success)
             {
                 currentLink = callChain.Pop();
@@ -66,16 +69,15 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
                     return errors;
                 }
 
+                // Look in the referred class for the variable or function that is being referred to
                 linkedVariable = referredClass.getChild().GetEntries().FirstOrDefault(x => (x is VarParamEntry || x is FunctionEntry) && x.getName() == currentLink.getValue());
 
                 success = VerifyLink(currentLink, linkedVariable, lastToken, errors);
-
-                //if (!success)
-                    //return errors;
             }
 
             ClassEntry expressionType = new ClassEntry("undefined", 0);
 
+            // Find the linked variable and create a new expression for it
             if (linkedVariable is VarParamEntry)
                 expressionType = ((VarParamEntry)linkedVariable).getVariable().getClass();
             else if(linkedVariable is FunctionEntry)
@@ -94,6 +96,8 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             return "Verify data members";
         }
         
+        // A helper function to verify that a reference to a variable or function
+        // as the correct indicies or parameters
         private bool VerifyLink(SemanticRecord currentLink, Entry linkedVariable, IToken lastToken, List<string> errors)
         {
             if (linkedVariable == null)
@@ -128,17 +132,18 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             {
                 var parameters = GetParameters(linkedVariable as FunctionEntry);
 
+                // Verify the number of paramters
                 if (parameters.Count() != ((FunctionCallRecord)currentLink).GetParameterCount())
                 {
                     errors.Add(string.Format("Function call {0} at line {1} does not have the correct number of parameters. Counted {2} expected {3}"
                         , currentLink.getValue(), lastToken.getLine(), ((FunctionCallRecord)currentLink).GetParameterCount(), parameters.Count()));
                     return false;
                 }
-                //else if(parameters.Zip(((FunctionCallRecord)currentLink).GetParameters(), (fparam, aparam) => ((VarParamEntry)fparam).getVariable().getClass() == aparam.getVariable().getClass()).Any(x => !x))
                 else
                 {
                     var parameterComparers = parameters.Zip(((FunctionCallRecord)currentLink).GetParameters(), (f, a) => new { aparam = a, fparam = (VarParamEntry)f });
 
+                    // Verify that the parameters are of the correct type
                     foreach(var parameterCompare in parameterComparers)
                     {
                         if (parameterCompare.aparam.GetExpressionType() != parameterCompare.fparam.getVariable().getClass())
@@ -156,11 +161,7 @@ namespace COMP442_Assignment4.SymbolTables.SemanticActions
             }
         }
 
-        /*private int CountNumParams(FunctionEntry entry)
-        {
-            return entry.getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter).Count();
-        }*/
-
+        // Get the parameters for a function
         private IEnumerable<Entry> GetParameters(FunctionEntry enty)
         {
             return enty.getChild().GetEntries().Where(x => x.getKind() == EntryKinds.parameter);
