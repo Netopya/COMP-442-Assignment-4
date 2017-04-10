@@ -95,16 +95,20 @@ namespace COMP442_Assignment4
             outputToFile("outputSymbolTable.txt", symbolTableOutput);
             outputToFile("outputSymbolTableErrors.txt", semanticErrors);
 
-            // Switch to the syntactic output tab
+            string moonCodeText = result.MoonCode.GenerateCode();
+
+            outputToFile("outputMoonCode.txt", moonCodeText);
+
+            // Switch to the moon code output tab
             if (result.Derivation.Any())
             {
-                tabControl1.SelectTab(3);
+                tabControl1.SelectTab(4);
             }
 
             // Update the status label
             label1.Text = result.Errors.Any() ? "Status: Error in Syntax" : "Status: Valid Syntax";
 
-            txtMoonCode.Text = result.MoonCode.GenerateCode();
+            
         }
 
         // Outputs a string to a file
